@@ -1,3 +1,25 @@
-<form [formGroup]="registerUserForm">
+<form [formGroup]="registerUserForm" (ngSubmit)="handleSubmit()">
+  <label>First Name</label>
+  <input type="text" formControlName="firstName" />
+  <br />
+  <label>Last Name</label>
+  <input type="text" formControlName="lastName" />
+  <br />
 
+  <label>Email</label>
+  <input type="email" formControlName="email" />
+  <br />
+  <label>Password</label>
+  <input type="password" formControlName="password" />
+  <br />
+  <label>Confirm Password</label>
+  <input type="password" formControlName="confirmPassword" />
+  <br />
+  <label>Job</label>
+  <select formControlName="jobId">
+    <option value="1">1
+    </option>
+  </select>
+
+  <button type="submit" [disabled]="registerUserForm.invalid">Register</button>
 </form>
