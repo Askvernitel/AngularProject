@@ -5,7 +5,8 @@ export function jobIdValidator(): ValidatorFn {
     if (control.value == 0) {
       return null;
     }
-
-    return { jobIdNotChosen: true };
+    //let numbericValue = control.valu
+    return null
+    //return { jobIdNotChosen: true };
   }
 }
