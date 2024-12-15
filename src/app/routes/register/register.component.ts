@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { UserService } from '../../shared/services/user.service';
-import { jobIdValidator } from '../../shared/Validators/job-id-validator';
+import { jobIdValidator } from '@app/shared/validators/job-id-validator';
 
 @Component({
   selector: 'app-register',
