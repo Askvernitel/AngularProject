@@ -1,0 +1,10 @@
+export { AddScheduleDTO } from './add-schedule-dto';
+export { ChangeUserRoleDTO } from './change-user-role-dto';
+export { GetJobDTO } from './get-job-dto';
+export { GetUsersDTO } from './get-users-dto';
+export { JobDTO } from './job-dto';
+export { LoginDTO } from './login-dto';
+export { RoleDTO } from './role-dto';
+export { ScheduleDTO } from './schedule-dto';
+export { UserDTO } from './user-dto';
+export { UserWorkerDTO } from "./user-worker-dto";
