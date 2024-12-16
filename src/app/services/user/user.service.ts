@@ -18,7 +18,7 @@ import { environment } from '@env/environment';
 export class UserService implements IUserService {
   #baseUrl = new URL('User', environment.apiUrl);
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   private handleError(error: HttpErrorResponse) {
     console.error(error);
