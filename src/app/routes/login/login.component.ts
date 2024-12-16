@@ -22,7 +22,7 @@ export class LoginComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private userService: UserService,
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.formInit();
@@ -34,24 +34,24 @@ export class LoginComponent implements OnInit {
       password: ['', [Validators.required]],
     });
   }
+  private handleSuccessLogin(JWTToken: string) {
+    //TODO: add authefication
+    console.log(JWTToken);
+  }
+  private handleFailedLogin(error: Error) {
+    // TODO: add good error handling
+    console.log(error);
+  }
 
   protected handleSubmit(): void {
     if (!this.loginUserForm.valid) {
       return;
     }
     const user: LoginDTO = this.loginUserForm.value;
-    console.log(user);
     this.userService
-      .login(user)
-      .pipe(
-        catchError((err) => {
-          console.log(err);
-          return throwError('Incorrect Credentials');
-        }),
-      )
-      .subscribe(
-        (res) => console.log(res),
-        (err) => console.log(err),
+      .login(user).subscribe(
+        this.handleSuccessLogin,
+        this.handleFailedLogin,
       );
   }
 }

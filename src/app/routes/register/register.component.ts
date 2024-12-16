@@ -8,6 +8,8 @@ import {
   ValidatorFn,
   Validators,
 } from '@angular/forms';
+import { UserDTO } from '@app/dto';
+import { User } from '@app/entities';
 import { UserService } from '@app/services';
 
 @Component({
@@ -23,7 +25,7 @@ export class RegisterComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private userService: UserService,
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.formInit();
@@ -62,7 +64,13 @@ export class RegisterComponent implements OnInit {
       ],
     });
   }
-
+  private handleSuccessRegister(data: User) {
+    console.log(data);
+  }
+  private handleFailedRegister(error: Error) {
+    // TODO: add good error handling
+    console.log(error);
+  }
   protected handleSubmit(): void {
     if (!this.registerUserForm.valid) {
       return;
@@ -72,5 +80,13 @@ export class RegisterComponent implements OnInit {
     if (confirmPassword != password) {
       return;
     }
+    const user: UserDTO = this.registerUserForm.value as UserDTO;
+
+    //register
+    this.userService.register(user).subscribe(
+      this.handleSuccessRegister,
+      this.handleFailedRegister,
+
+    );
   }
 }
