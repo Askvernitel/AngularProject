@@ -5,7 +5,7 @@ import { AppComponent } from '@app/app.component';
 export const routes: Routes = [
   {
     path: '',
-    pathMatch: 'full',
+    pathMatch: "full",
     redirectTo: "home",
   },
   {
@@ -20,4 +20,8 @@ export const routes: Routes = [
     path: 'register',
     component: RegisterComponent,
   },
+  {
+    path: '**',
+    redirectTo: "home",
+  }
 ];

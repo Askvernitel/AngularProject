@@ -29,6 +29,8 @@ export class RegisterComponent implements OnInit {
 
   ngOnInit(): void {
     this.formInit();
+    this.registerUserForm.statusChanges.subscribe(console.log);
+    this.registerUserForm.valueChanges.subscribe(console.log);
   }
 
   private formInit(): void {
@@ -40,31 +42,25 @@ export class RegisterComponent implements OnInit {
         '',
         [
           Validators.required,
-          Validators.pattern('^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$'),
+          Validators.minLength(8),
         ],
       ],
       confirmPassword: [
         '',
         [
           Validators.required,
-          Validators.pattern('^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$'),
+          Validators.minLength(8),
         ],
       ],
       jobId: [
-        0,
-        [Validators.required, Validators.pattern('/^\d+$/')],
-        (): ValidatorFn => {
-          return (control: AbstractControl): ValidationErrors | null => {
-            if (control.value == 0) {
-              return null;
-            }
-            return { jobIdNotChosen: true };
-          };
-        },
+        '',
+        [Validators.required]
+
       ],
     });
   }
   private handleSuccessRegister(data: User) {
+    // TODO: add good successfull registeration handling
     console.log(data);
   }
   private handleFailedRegister(error: Error) {
@@ -78,11 +74,10 @@ export class RegisterComponent implements OnInit {
     const { confirmPassword, password } = this.registerUserForm.value;
 
     if (confirmPassword != password) {
+      this.handleFailedRegister(new Error("Passwords Don't match"));
       return;
     }
     const user: UserDTO = this.registerUserForm.value as UserDTO;
-
-    //register
     this.userService.register(user).subscribe(
       this.handleSuccessRegister,
       this.handleFailedRegister,
