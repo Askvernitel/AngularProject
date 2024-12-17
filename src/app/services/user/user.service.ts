@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { catchError, Observable, throwError } from 'rxjs';
 import {
   GetJobDTO,
@@ -22,6 +22,7 @@ export class UserService implements IUserService {
 
   private handleError(error: HttpErrorResponse) {
     console.error(error);
+
     return throwError(() => new Error(error.message));
   }
 
@@ -33,7 +34,8 @@ export class UserService implements IUserService {
 
   login(loginDto: LoginDTO): Observable<string> {
     return this.http
-      .post<string>(`${this.#baseUrl}/login`, loginDto)
+      .post<string>(`${this.#baseUrl}/login`, loginDto
+      )
       .pipe(catchError(this.handleError));
   }
 

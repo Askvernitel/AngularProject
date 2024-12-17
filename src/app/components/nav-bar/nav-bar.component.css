@@ -1,0 +1,24 @@
+nav {
+  overflow: hidden;
+  width: 500px;
+}
+
+nav ul a:hover {
+  cursor: pointer;
+  color: black;
+  background: gray;
+}
+
+nav ul a {
+  color: white
+}
+
+.active-link {
+  background: gray;
+}
+
+nav ul {
+  display: flex;
+  background: black;
+  list-style: none;
+}

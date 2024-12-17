@@ -34,7 +34,7 @@ export class LoginComponent implements OnInit {
       password: ['', [Validators.required]],
     });
   }
-  private handleSuccessLogin(JWTToken: string) {
+  private handleSuccessLogin(JWTToken: any) {
     //TODO: add authefication
     console.log(JWTToken);
   }

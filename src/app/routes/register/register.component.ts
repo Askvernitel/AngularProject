@@ -40,27 +40,19 @@ export class RegisterComponent implements OnInit {
         '',
         [
           Validators.required,
-          Validators.pattern('^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$'),
+          Validators.minLength(8),
         ],
       ],
       confirmPassword: [
         '',
         [
           Validators.required,
-          Validators.pattern('^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$'),
+          Validators.minLength(8),
         ],
       ],
       jobId: [
-        0,
-        [Validators.required, Validators.pattern('/^\d+$/')],
-        (): ValidatorFn => {
-          return (control: AbstractControl): ValidationErrors | null => {
-            if (control.value == 0) {
-              return null;
-            }
-            return { jobIdNotChosen: true };
-          };
-        },
+        '',
+        [Validators.required],
       ],
     });
   }
