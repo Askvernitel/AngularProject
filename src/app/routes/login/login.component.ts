@@ -5,7 +5,6 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { catchError, of, throwError } from 'rxjs';
 import { UserService } from '@app/services';
 import { LoginDTO } from '@app/dto';
 
@@ -14,7 +13,7 @@ import { LoginDTO } from '@app/dto';
   standalone: true,
   imports: [ReactiveFormsModule],
   templateUrl: './login.component.html',
-  styleUrl: './login.component.css',
+  styleUrls: ['./login.component.css'],
 })
 export class LoginComponent implements OnInit {
   protected loginUserForm!: FormGroup;
@@ -22,7 +21,7 @@ export class LoginComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private userService: UserService,
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.formInit();
@@ -35,7 +34,7 @@ export class LoginComponent implements OnInit {
     });
   }
   private handleSuccessLogin(JWTToken: any) {
-    //TODO: add authefication
+    //TODO: add authentication
     console.log(JWTToken);
   }
   private handleFailedLogin(error: Error) {
@@ -49,9 +48,7 @@ export class LoginComponent implements OnInit {
     }
     const user: LoginDTO = this.loginUserForm.value;
     this.userService
-      .login(user).subscribe(
-        this.handleSuccessLogin,
-        this.handleFailedLogin,
-      );
+      .login(user)
+      .subscribe(this.handleSuccessLogin, this.handleFailedLogin);
   }
 }

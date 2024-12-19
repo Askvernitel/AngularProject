@@ -17,7 +17,7 @@ import { UserService } from '@app/services';
   standalone: true,
   imports: [ReactiveFormsModule],
   templateUrl: './register.component.html',
-  styleUrl: './register.component.css',
+  styleUrls: ['./register.component.css'],
 })
 export class RegisterComponent implements OnInit {
   registerUserForm!: FormGroup;
@@ -25,7 +25,7 @@ export class RegisterComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private userService: UserService,
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.formInit();
@@ -36,24 +36,9 @@ export class RegisterComponent implements OnInit {
       firstName: ['', [Validators.required, Validators.minLength(4)]],
       lastName: ['', [Validators.required, Validators.minLength(4)]],
       email: ['', [Validators.required, Validators.email]],
-      password: [
-        '',
-        [
-          Validators.required,
-          Validators.minLength(8),
-        ],
-      ],
-      confirmPassword: [
-        '',
-        [
-          Validators.required,
-          Validators.minLength(8),
-        ],
-      ],
-      jobId: [
-        '',
-        [Validators.required],
-      ],
+      password: ['', [Validators.required, Validators.minLength(8)]],
+      confirmPassword: ['', [Validators.required, Validators.minLength(8)]],
+      jobId: ['', [Validators.required]],
     });
   }
   private handleSuccessRegister(data: User) {
@@ -75,10 +60,8 @@ export class RegisterComponent implements OnInit {
     const user: UserDTO = this.registerUserForm.value as UserDTO;
 
     //register
-    this.userService.register(user).subscribe(
-      this.handleSuccessRegister,
-      this.handleFailedRegister,
-
-    );
+    this.userService
+      .register(user)
+      .subscribe(this.handleSuccessRegister, this.handleFailedRegister);
   }
 }
