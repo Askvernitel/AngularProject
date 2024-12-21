@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError, map, Observable, of } from 'rxjs';
 import { AddScheduleDTO } from '@app/dto';
 import { IWorkerService } from '@app/interfaces';
@@ -14,8 +14,22 @@ export class WorkerService implements IWorkerService {
   constructor(private http: HttpClient) {}
 
   addScheduleRequest(scheduleDto: AddScheduleDTO): Observable<boolean> {
+    const token = localStorage.getItem('token');
+
+    if (!token) {
+      return of(false);
+    }
+
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    });
+
     return this.http
-      .post(`${this.#baseUrl}/add-schedule-request`, scheduleDto)
+      .post(`${this.#baseUrl}/add-schedule-request`, scheduleDto, {
+        headers,
+        responseType: 'json',
+      })
       .pipe(
         map(() => true),
         catchError((err) => {
