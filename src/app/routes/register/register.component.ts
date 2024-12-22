@@ -14,8 +14,6 @@ import { UserService } from '@app/services';
 
 @Component({
   selector: 'app-register',
-  standalone: true,
-  imports: [ReactiveFormsModule],
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css'],
 })
@@ -60,8 +58,9 @@ export class RegisterComponent implements OnInit {
     const user: UserDTO = this.registerUserForm.value as UserDTO;
 
     //register
-    this.userService
-      .register(user)
-      .subscribe(this.handleSuccessRegister, this.handleFailedRegister);
+    this.userService.register(user).subscribe({
+      next: this.handleSuccessRegister,
+      error: this.handleFailedRegister,
+    });
   }
 }
