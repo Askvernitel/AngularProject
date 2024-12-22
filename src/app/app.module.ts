@@ -7,10 +7,13 @@ import { AppComponent } from '@app/app.component';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { UnlessDirective } from './directives/unless.directive';
-import { HomeComponent, LoginComponent, RegisterComponent } from '@app/routes';
+import { HomeComponent, LoginComponent, RegisterComponent, WorkerComponent, AdminComponent } from '@app/routes';
 import { ReactiveFormsModule } from '@angular/forms';
-import { WorkerComponent } from './routes/worker/worker.component';
-import { AdminComponent } from './routes/admin/admin.component';
+import { NavBarComponent } from './components/nav-bar/nav-bar.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatCardModule } from '@angular/material/card';
+import { MatInput, MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
 
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
   return new TranslateHttpLoader(http, '@/assets/i18n/', '.json');
@@ -18,17 +21,23 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
 
 @NgModule({
   declarations: [
+
     AppComponent,
     UnlessDirective,
     HomeComponent,
-    RegisterComponent,
     LoginComponent,
+    RegisterComponent,
+    NavBarComponent,
     WorkerComponent,
-    AdminComponent,
+    AdminComponent
   ],
   imports: [
     BrowserModule,
+    MatFormFieldModule,
+    MatCardModule,
+    MatInputModule,
     AppRoutingModule,
+    MatButtonModule,
     HttpClientModule,
     ReactiveFormsModule,
     TranslateModule.forRoot({

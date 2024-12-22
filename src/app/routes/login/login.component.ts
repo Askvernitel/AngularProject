@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -7,6 +7,7 @@ import {
 } from '@angular/forms';
 import { UserService } from '@app/services';
 import { LoginDTO } from '@app/dto';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -19,7 +20,8 @@ export class LoginComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private userService: UserService,
-  ) {}
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
     this.formInit();
@@ -32,7 +34,7 @@ export class LoginComponent implements OnInit {
     });
   }
   private handleSuccessLogin(JWTToken: any) {
-    //TODO: add authentication
+    localStorage.setItem("token", JWTToken);
     console.log(JWTToken);
   }
   private handleFailedLogin(error: Error) {
@@ -47,6 +49,9 @@ export class LoginComponent implements OnInit {
     const user: LoginDTO = this.loginUserForm.value;
     this.userService
       .login(user)
-      .subscribe(this.handleSuccessLogin, this.handleFailedLogin);
+      .subscribe({
+        next: this.handleSuccessLogin,
+        error: this.handleFailedLogin
+      });
   }
 }
