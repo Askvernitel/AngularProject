@@ -11,6 +11,7 @@ import {
 import { UserDTO } from '@app/dto';
 import { User } from '@app/entities';
 import { UserService } from '@app/services';
+import { passwordMatchValidator } from '@app/validators/password-match.validator';
 
 @Component({
   selector: 'app-register',
@@ -23,7 +24,7 @@ export class RegisterComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private userService: UserService,
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.formInit();
@@ -37,7 +38,7 @@ export class RegisterComponent implements OnInit {
       password: ['', [Validators.required, Validators.minLength(8)]],
       confirmPassword: ['', [Validators.required, Validators.minLength(8)]],
       jobId: ['', [Validators.required]],
-    });
+    }, { validators: passwordMatchValidator });
   }
   private handleSuccessRegister(data: User) {
     console.log(data);
