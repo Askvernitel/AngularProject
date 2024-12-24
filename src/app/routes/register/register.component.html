@@ -1,4 +1,4 @@
-<form [formGroup]="registerUserForm" (ngSubmit)="handleSubmit()">
+<!--<form [formGroup]="registerUserForm" (ngSubmit)="handleSubmit()">
   <label>First Name</label>
   <input type="text" formControlName="firstName" />
   <br />
@@ -21,4 +21,37 @@
   </select>
 
   <button type="submit" [disabled]="registerUserForm.invalid">Register</button>
-</form>
+</form>-->
+
+<div class="register-card">
+  <h1>Register</h1>
+  <form [formGroup]="registerUserForm" (ngSubmit)="handleSubmit()">
+
+    <div class="mb-3">
+      <label class="form-label">First Name</label>
+      <input type="text" class="form-control" formControlName="firstName" placeholder="First Name">
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Last Name</label>
+      <input type="text" class="form-control" formControlName="lastName" placeholder="Last Name">
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Email address</label>
+      <input type="email" class="form-control" formControlName="email" placeholder="Email">
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Password</label>
+      <input type="password" class="form-control" formControlName="password" placeholder="******">
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Confirm Password</label>
+      <input type="password" class="form-control" formControlName="confirmPassword" placeholder="******">
+    </div>
+    <div class="d-flex justify-content-center">
+      <button type="submit" class="btn btn-success mx-1" [disabled]="">Register</button>
+
+      <a class="btn btn-primary mx-1" routerLink="/login">Go To Login</a>
+    </div>
+  </form>
+</div>
