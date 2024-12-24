@@ -1,14 +1,4 @@
-<!--<form [formGroup]="loginUserForm" (ngSubmit)="handleSubmit()">
-  <label>Email</label>
-  <input type="email" formControlName="email" />
-  <br />
-  <label>Password</label>
-  <input type="password" formControlName="password" />
-  <button type="submit" [disabled]="loginUserForm.invalid">Log In</button>
-</form>-->
-
-
-
+<!--
 <div class="login-card">
   <h1>Login</h1>
   <mat-card class="outlined ">
@@ -32,4 +22,24 @@
     </mat-card-content>
   </mat-card>
 
+</div>
+-->
+<div class="login-card">
+  <h1>Login</h1>
+  <form [formGroup]="loginUserForm" (ngSubmit)="handleSubmit()">
+    <div class="mb-3">
+      <label class="form-label">Email address</label>
+      <input type="email" class="form-control" formControlName="email" placeholder="Email">
+      <div class="form-text">Email :)</div>
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Password</label>
+      <input type="password" class="form-control" formControlName="password" placeholder="******">
+    </div>
+    <div class="d-flex justify-content-center">
+      <button type="submit" class="btn btn-success mx-1">Log In</button>
+
+      <a class="btn btn-primary mx-1" routerLink="/register">Register</a>
+    </div>
+  </form>
 </div>
