@@ -4,7 +4,7 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { AppRoutingModule } from '@app/app-routing.module';
 import { AppComponent } from '@app/app.component';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClient, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { UnlessDirective } from './directives/unless.directive';
 import { HomeComponent, LoginComponent, RegisterComponent, WorkerComponent, AdminComponent } from '@app/routes';
@@ -23,7 +23,6 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
 
 @NgModule({
   declarations: [
-
     AppComponent,
     UnlessDirective,
     HomeComponent,
@@ -33,16 +32,12 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     WorkerComponent,
     AdminComponent
   ],
-  imports: [
-    BrowserModule,
+  bootstrap: [AppComponent], imports: [BrowserModule,
     MatFormFieldModule,
     MatCardModule,
     MatInputModule,
     AppRoutingModule,
     MatButtonModule,
-    MatIconModule,
-    MatToolbarModule,
-    HttpClientModule,
     ReactiveFormsModule,
     TranslateModule.forRoot({
       loader: {
@@ -51,9 +46,6 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
         deps: [HttpClient],
       },
     }),
-    BrowserAnimationsModule,
-  ],
-  providers: [],
-  bootstrap: [AppComponent],
+    BrowserAnimationsModule], providers: [provideHttpClient(withInterceptorsFromDi())]
 })
 export class AppModule { }
