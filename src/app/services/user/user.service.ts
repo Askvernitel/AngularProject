@@ -22,7 +22,7 @@ export class UserService implements IUserService {
   constructor(
     private http: HttpClient,
     private router: Router,
-  ) {}
+  ) { }
 
   private handleError(error: HttpErrorResponse) {
     console.error(error);
@@ -51,7 +51,7 @@ export class UserService implements IUserService {
     return this.http
       .post<string>(`${this.#baseUrl}/login`, loginDto, {
         headers,
-        responseType: 'json',
+        responseType: 'text' as 'json',
       })
       .pipe(catchError(this.handleError));
   }
@@ -74,15 +74,17 @@ export class UserService implements IUserService {
   }
 
   getJobs(): Observable<GetJobDTO[]> {
-    const token = localStorage.getItem('token');
+
+    //no need to check token for jobs options it is required in register component
+    /*const token = localStorage.getItem('token');
     if (!token) {
       return throwError(() => new Error('No token found'));
-    }
+    }*/
 
     const headers = new HttpHeaders({
-      Authorization: `Bearer ${token}`,
+      //Authorization: `Bearer ${token}`,
     });
-
+    console.log(this.#baseUrl);
     return this.http
       .get<
         GetJobDTO[]
@@ -91,6 +93,7 @@ export class UserService implements IUserService {
   }
 
   getUsers(): Observable<GetUsersDTO[]> {
+
     const token = localStorage.getItem('token');
     if (!token) {
       return throwError(() => new Error('No token found'));

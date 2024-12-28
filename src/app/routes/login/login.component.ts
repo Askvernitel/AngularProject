@@ -50,8 +50,14 @@ export class LoginComponent implements OnInit {
     this.userService
       .login(user)
       .subscribe({
-        next: this.handleSuccessLogin,
-        error: this.handleFailedLogin
+        next: (JWTToken: string) => {
+          if (!JWTToken) return;
+          this.router.navigate(["worker"])
+
+        },
+        error: () => {
+
+        }
       });
   }
 }
