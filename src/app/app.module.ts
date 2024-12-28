@@ -14,6 +14,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatCardModule } from '@angular/material/card';
 import { MatInput, MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatToolbar, MatToolbarModule } from '@angular/material/toolbar';
 
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
   return new TranslateHttpLoader(http, '@/assets/i18n/', '.json');
@@ -38,6 +40,8 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     MatInputModule,
     AppRoutingModule,
     MatButtonModule,
+    MatIconModule,
+    MatToolbarModule,
     HttpClientModule,
     ReactiveFormsModule,
     TranslateModule.forRoot({

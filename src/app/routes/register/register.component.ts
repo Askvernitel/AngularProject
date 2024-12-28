@@ -35,10 +35,10 @@ export class RegisterComponent implements OnInit {
       firstName: ['', [Validators.required, Validators.minLength(4)]],
       lastName: ['', [Validators.required, Validators.minLength(4)]],
       email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(8)]],
-      confirmPassword: ['', [Validators.required, Validators.minLength(8)]],
+      password: ['', [Validators.required, Validators.minLength(6)]],
+      confirmPassword: ['', [Validators.required, Validators.minLength(6)]],
       jobId: ['', [Validators.required]],
-    }, { validators: passwordMatchValidator });
+    }, /*{ validators: passwordMatchValidator }*/);
   }
   private handleSuccessRegister(data: User) {
     console.log(data);
@@ -51,6 +51,7 @@ export class RegisterComponent implements OnInit {
     if (!this.registerUserForm.valid) {
       return;
     }
+    console.log("here")
     const { confirmPassword, password } = this.registerUserForm.value;
 
     if (confirmPassword != password) {

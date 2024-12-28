@@ -3,3 +3,26 @@
   align-items: center;
   flex-direction: column;
 }
+
+.register-form {
+  display: flex;
+  flex-direction: column;
+
+  width: 600px;
+  height: 450px;
+}
+
+.register-buttons {
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  row-gap: 5px;
+  width: 300px;
+}
+
+.register-card {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}

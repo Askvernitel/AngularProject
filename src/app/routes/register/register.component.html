@@ -1,3 +1,47 @@
+<div class="register-card">
+  <h1>Register</h1>
+  <mat-card class="outlined">
+    <mat-card-content>
+      <form [formGroup]="registerUserForm" (ngSubmit)="handleSubmit()" class="register-form">
+        <mat-form-field>
+          <mat-label>First Name</mat-label>
+          <input matInput placeholder="First Name" formControlName="firstName" type="text">
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>Last Name</mat-label>
+          <input matInput placeholder="Last Name" formControlName="lastName" type="text">
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>Email</mat-label>
+          <input matInput placeholder="Email" formControlName="email" type="email">
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>Password</mat-label>
+          <input matInput placeholder="******" formControlName="password" type="password">
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Confirm Password</mat-label>
+          <input matInput placeholder="******" formControlName="confirmPassword" type="password">
+        </mat-form-field>
+
+
+
+        <div class="register-buttons">
+          <button mat-raised-button style="" type="submit">Register</button>
+          <button mat-button routerLink="/login">Already Registered?</button>
+        </div>
+
+      </form>
+    </mat-card-content>
+  </mat-card>
+
+</div>
+
+
+
 <!--<form [formGroup]="registerUserForm" (ngSubmit)="handleSubmit()">
   <label>First Name</label>
   <input type="text" formControlName="firstName" />
@@ -22,36 +66,3 @@
 
   <button type="submit" [disabled]="registerUserForm.invalid">Register</button>
 </form>-->
-
-<div class="register-card">
-  <h1>Register</h1>
-  <form [formGroup]="registerUserForm" (ngSubmit)="handleSubmit()">
-
-    <div class="mb-3">
-      <label class="form-label">First Name</label>
-      <input type="text" class="form-control" formControlName="firstName" placeholder="First Name">
-    </div>
-    <div class="mb-3">
-      <label class="form-label">Last Name</label>
-      <input type="text" class="form-control" formControlName="lastName" placeholder="Last Name">
-    </div>
-
-    <div class="mb-3">
-      <label class="form-label">Email address</label>
-      <input type="email" class="form-control" formControlName="email" placeholder="Email">
-    </div>
-    <div class="mb-3">
-      <label class="form-label">Password</label>
-      <input type="password" class="form-control" formControlName="password" placeholder="******">
-    </div>
-    <div class="mb-3">
-      <label class="form-label">Confirm Password</label>
-      <input type="password" class="form-control" formControlName="confirmPassword" placeholder="******">
-    </div>
-    <div class="d-flex justify-content-center">
-      <button type="submit" class="btn btn-success mx-1" [disabled]="">Register</button>
-
-      <a class="btn btn-primary mx-1" routerLink="/login">Go To Login</a>
-    </div>
-  </form>
-</div>

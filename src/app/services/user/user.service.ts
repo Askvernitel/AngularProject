@@ -26,7 +26,7 @@ export class UserService implements IUserService {
   constructor(
     private http: HttpClient,
     private router: Router,
-  ) {}
+  ) { }
 
   private handleError(error: HttpErrorResponse) {
     console.error(error);
@@ -95,6 +95,7 @@ export class UserService implements IUserService {
   }
 
   getUsers(): Observable<GetUsersDTO[]> {
+
     const token = localStorage.getItem('token');
     if (!token) {
       return throwError(() => new Error('No token found'));
