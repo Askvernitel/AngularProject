@@ -16,6 +16,8 @@ import { MatInput, MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatToolbar, MatToolbarModule } from '@angular/material/toolbar';
+import { MatSelectModule } from '@angular/material/select';
+import { JsonPipe } from '@angular/common';
 
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
   return new TranslateHttpLoader(http, '@/assets/i18n/', '.json');
@@ -34,11 +36,14 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
   ],
   bootstrap: [AppComponent], imports: [BrowserModule,
     MatFormFieldModule,
+    MatToolbarModule,
     MatCardModule,
     MatInputModule,
     AppRoutingModule,
     MatButtonModule,
     ReactiveFormsModule,
+    MatSelectModule,
+    JsonPipe,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,

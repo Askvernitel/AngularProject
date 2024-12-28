@@ -27,10 +27,18 @@
           <input matInput placeholder="******" formControlName="confirmPassword" type="password">
         </mat-form-field>
 
+        <mat-form-field>
+          <mat-label>Jobs</mat-label>
+          <mat-select formControlName="jobId">
+            <mat-option>None</mat-option>
+
+            <mat-option *ngFor="let job of (jobs$| async)" [value]="job.id">{{job.title}}</mat-option>
+          </mat-select>
+        </mat-form-field>
 
 
         <div class="register-buttons">
-          <button mat-raised-button style="" type="submit">Register</button>
+          <button mat-raised-button style="" type="submit" [disabled]="registerUserForm.invalid">Register</button>
           <button mat-button routerLink="/login">Already Registered?</button>
         </div>
 
