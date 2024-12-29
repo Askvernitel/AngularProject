@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { catchError, map, Observable, of, throwError } from 'rxjs';
+import { BehaviorSubject, catchError, map, Observable, of, throwError } from 'rxjs';
 import { JobDTO } from '@app/dto';
 import { IAdminService } from '@app/interfaces';
 import { environment } from '@env/environment';
@@ -11,7 +11,7 @@ import { environment } from '@env/environment';
 export class AdminService implements IAdminService {
   readonly #baseUrl = new URL('Admin', environment.apiUrl);
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   private handleError(error: HttpErrorResponse): Observable<boolean> {
     console.error(`Error: ${error}`);
@@ -40,7 +40,6 @@ export class AdminService implements IAdminService {
         catchError(this.handleError),
       );
   }
-
   addNewJob(jobDto: JobDTO): Observable<boolean> {
     return this.http.post(`${this.#baseUrl}/add-new-job`, jobDto).pipe(
       map(() => true),

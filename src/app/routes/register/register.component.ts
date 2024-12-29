@@ -30,7 +30,6 @@ export class RegisterComponent implements OnInit {
   ngOnInit(): void {
     this.formInit();
     this.jobs$ = this.userService.getJobs();
-    this.registerUserForm.valueChanges.subscribe(console.log);
   }
 
   private formInit(): void {
@@ -43,19 +42,10 @@ export class RegisterComponent implements OnInit {
       jobId: ['', [Validators.required]],
     }, { validators: passwordMatchValidator });
   }
-  private handleSuccessRegister(data: User) {
-    console.log(data);
-  }
-  private handleFailedRegister(error: Error) {
-    // TODO: add good error handling
-    console.log(error);
-  }
   protected handleSubmit(): void {
     if (!this.registerUserForm.valid) {
-      console.log("hee");
       return;
     }
-    console.log("here")
     const { confirmPassword, password } = this.registerUserForm.value;
 
     if (confirmPassword != password) {
@@ -65,8 +55,12 @@ export class RegisterComponent implements OnInit {
 
     //register
     this.userService.register(user).subscribe({
-      next: this.handleSuccessRegister,
-      error: this.handleFailedRegister,
+      next: () => {
+
+      },
+      error: () => {
+
+      },
     });
   }
 
