@@ -33,14 +33,6 @@ export class LoginComponent implements OnInit {
       password: ['', [Validators.required]],
     });
   }
-  private handleSuccessLogin(JWTToken: any) {
-    localStorage.setItem("token", JWTToken);
-    console.log(JWTToken);
-  }
-  private handleFailedLogin(error: Error) {
-    // TODO: add good error handling
-    console.log(error);
-  }
 
   protected handleSubmit(): void {
     if (!this.loginUserForm.valid) {
@@ -51,9 +43,20 @@ export class LoginComponent implements OnInit {
       .login(user)
       .subscribe({
         next: (JWTToken: string) => {
-          if (!JWTToken) return;
-          this.router.navigate(["worker"])
 
+          if (!JWTToken) return;
+          //TODO: place this code in function
+          const claims = JSON.parse(atob(JWTToken.split(".")[1]));
+          const roleKey = "http://schemas.microsoft.com/ws/2008/06/identity/claims/role"
+          //TODO: handle this case properly
+          const role = claims[roleKey]
+          if (!role) return;
+          localStorage.setItem("token", JWTToken);
+          if (role == 1) {
+            this.router.navigate(["admin"])
+          } else {
+            this.router.navigate(["worker"])
+          }
         },
         error: () => {
 

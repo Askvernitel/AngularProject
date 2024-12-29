@@ -1,0 +1,13 @@
+export enum Months {
+  JANUARY,
+  FEBRUARY,
+  MARCH,
+  APRIL,
+  MAY,
+  JUNE,
+  JULY,
+  AUGUST,
+  OCTOBER,
+  NOVEMBER,
+  DECEMBER
+}
