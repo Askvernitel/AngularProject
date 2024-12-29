@@ -4,5 +4,5 @@ const PORT = process.env.PORT ?? '5000';
 //const PORT = 5000;
 export const environmentDevelopment: Environment = {
   production: false,
-  apiUrl: `http://localhost:${PORT}/api`,
+  apiUrl: `http://localhost:${PORT}/api/`,
 };

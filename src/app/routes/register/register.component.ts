@@ -8,10 +8,11 @@ import {
   ValidatorFn,
   Validators,
 } from '@angular/forms';
-import { UserDTO } from '@app/dto';
+import { GetJobDTO, JobDTO, UserDTO } from '@app/dto';
 import { User } from '@app/entities';
 import { UserService } from '@app/services';
 import { passwordMatchValidator } from '@app/validators/password-match.validator';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-register',
@@ -20,7 +21,7 @@ import { passwordMatchValidator } from '@app/validators/password-match.validator
 })
 export class RegisterComponent implements OnInit {
   registerUserForm!: FormGroup;
-
+  jobs$!: Observable<GetJobDTO[]>;
   constructor(
     private formBuilder: FormBuilder,
     private userService: UserService,
@@ -28,6 +29,8 @@ export class RegisterComponent implements OnInit {
 
   ngOnInit(): void {
     this.formInit();
+    this.jobs$ = this.userService.getJobs();
+    this.registerUserForm.valueChanges.subscribe(console.log);
   }
 
   private formInit(): void {
@@ -35,8 +38,8 @@ export class RegisterComponent implements OnInit {
       firstName: ['', [Validators.required, Validators.minLength(4)]],
       lastName: ['', [Validators.required, Validators.minLength(4)]],
       email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(8)]],
-      confirmPassword: ['', [Validators.required, Validators.minLength(8)]],
+      password: ['', [Validators.required, Validators.minLength(6)]],
+      confirmPassword: ['', [Validators.required, Validators.minLength(6)]],
       jobId: ['', [Validators.required]],
     }, { validators: passwordMatchValidator });
   }
@@ -49,8 +52,10 @@ export class RegisterComponent implements OnInit {
   }
   protected handleSubmit(): void {
     if (!this.registerUserForm.valid) {
+      console.log("hee");
       return;
     }
+    console.log("here")
     const { confirmPassword, password } = this.registerUserForm.value;
 
     if (confirmPassword != password) {
@@ -64,4 +69,5 @@ export class RegisterComponent implements OnInit {
       error: this.handleFailedRegister,
     });
   }
+
 }
