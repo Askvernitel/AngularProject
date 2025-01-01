@@ -18,7 +18,9 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatToolbar, MatToolbarModule } from '@angular/material/toolbar';
 import { MatSelectModule } from '@angular/material/select';
 import { JsonPipe } from '@angular/common';
-import { MatTable } from '@angular/material/table';
+import { MatTable, MatTableModule } from '@angular/material/table';
+import { ScheduleTableComponent } from './components/schedule-table/schedule-table.component';
+import { NumericDateConverterPipe } from './pipes/numeric-date-converter.pipe';
 
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
   return new TranslateHttpLoader(http, '@/assets/i18n/', '.json');
@@ -33,7 +35,8 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     RegisterComponent,
     NavBarComponent,
     WorkerComponent,
-    AdminComponent
+    AdminComponent,
+    ScheduleTableComponent,
   ],
   bootstrap: [AppComponent], imports: [BrowserModule,
     MatFormFieldModule,
@@ -43,9 +46,10 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     AppRoutingModule,
     MatButtonModule,
     ReactiveFormsModule,
-    MatTable,
+    MatTableModule,
     MatSelectModule,
     JsonPipe,
+    NumericDateConverterPipe,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
