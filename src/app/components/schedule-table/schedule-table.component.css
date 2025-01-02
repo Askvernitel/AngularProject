@@ -1,0 +1,22 @@
+table {
+  width: 1200px;
+}
+
+table,
+th,
+td {
+  border: 1px solid;
+  border-collapse: collapse;
+}
+
+.button-container {
+  display: flex;
+  column-gap: 5px;
+}
+
+.flex-container {
+  row-gap: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
