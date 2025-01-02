@@ -22,13 +22,12 @@ type ScheduleTableData = {
 })
 export class ScheduleTableComponent implements OnInit {
   data!: ScheduleDTO[];
-  currentWeekData: ScheduleTableData[] = [];
+  currentWeekData: any[] = [];
 
   columns: string[] = ["Jobs", "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
   dayAndMonthColumns: Date[] = []; // always has length of 7
 
   ngOnInit(): void {
-    //this.dateArrayInit();
   }
   constructor(private userService: UserService) {
     let currentDate = new Date();
@@ -57,45 +56,6 @@ export class ScheduleTableComponent implements OnInit {
     }
 
   }
-  /*
-    private weekDataInit() {
-      this.userService.getDashboard().subscribe((data) => {
-        let schedulesByDate: ScheduleDTO[][] = [];
-        let currentWeek = 0;
-        this.dayAndMonthColumns.forEach((date: Date) => {
-          schedulesByDate.push([]);
-          data.forEach((schedule: ScheduleDTO) => {
-            let startTime = new Date(schedule.startTime);
-            if (startTime.getMonth() == date.getMonth() && startTime.getDate() == date.getDate()) {
-              schedulesByDate[currentWeek].push(schedule);
-            }
-          })
-          currentWeek++;
-
-        })
-        this.currentWeekData = []
-        this.userService.getJobs().subscribe((jobs: JobDTO[]) => {
-          jobs.forEach((job: JobDTO) => {
-            this.currentWeekData.push([job]);
-          });
-          schedulesByDate.forEach((schedules: ScheduleDTO[]) => {
-            this.currentWeekData.forEach((row) => {
-              let job: JobDTO = row[0];
-              let currentDateSchedules: any[] = []
-              schedules.forEach((schedule: ScheduleDTO) => {
-                if (job.title == schedule.jobTitle) {
-                  currentDateSchedules.push(schedule);
-                }
-              })
-              row.push(currentDateSchedules);
-            })
-          });
-
-          console.log(this.currentWeekData);
-        })
-
-      });
-    }*/
   private weekDataInit() {
     this.userService.getDashboard().subscribe((data) => {
       const schedulesByDate: ScheduleDTO[][] = [];
@@ -132,12 +92,19 @@ export class ScheduleTableComponent implements OnInit {
       });
     });
   }
-  switchToNextWeek() {
+  protected switchToNextWeek() {
     this.columnsInit(this.getNextDay(this.dayAndMonthColumns[6]));
     this.weekDataInit();
   }
-  switchToPreviousWeek() {
+  protected switchToPreviousWeek() {
     this.columnsInit(this.getPrevDay(this.dayAndMonthColumns[0]));
     this.weekDataInit()
+  }
+  protected isMorningShift(stringDate: string): boolean {
+    let date = new Date(stringDate);
+    console.log(date);
+    let morningShiftLowerBound = 8;//8am
+    let morningShiftUpperBound = 16; //4pm
+    return date.getHours() >= morningShiftLowerBound && date.getHours() <= morningShiftUpperBound;
   }
 }

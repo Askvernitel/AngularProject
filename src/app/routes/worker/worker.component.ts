@@ -8,22 +8,7 @@ import { Days } from '@app/enums/days';
 })
 export class WorkerComponent {
   constructor() {
-    let date = new Date(Date.now());
   }
-
-  weekdayToString(dayNumber: number) {
-
-
-  }
-
-  monthToString(monthNumber: number) {
-
-  }
-
-
-
-
-
 
 
 }
