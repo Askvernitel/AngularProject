@@ -2,6 +2,7 @@ nav {
   overflow: hidden;
 }
 
+/*
 nav ul a:hover {
   cursor: pointer;
   color: black;
@@ -10,17 +11,18 @@ nav ul a:hover {
 
 nav ul a {
   color: white
-}
+}*/
 
 .active-link {
   background: gray;
 }
 
+/*
 nav ul {
   display: flex;
   background: black;
   list-style: none;
-}
+}*/
 
 .nav {
   background-color: rgb(54, 69, 79) !important;

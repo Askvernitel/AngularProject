@@ -1,0 +1,27 @@
+.worker-dashboard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.worker-form-div {
+  margin-top: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 500px;
+}
+
+.worker-form {
+  padding: 20px;
+  row-gap: 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+.shift {
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

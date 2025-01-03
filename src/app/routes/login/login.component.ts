@@ -8,6 +8,10 @@ import {
 import { UserService } from '@app/services';
 import { LoginDTO } from '@app/dto';
 import { Router } from '@angular/router';
+import { RouterPaths } from '@app/enums/router-paths';
+import { SessionService } from '@app/services/session/session.service';
+import { RoleType } from '@app/enums/role-type';
+import { Role } from '@app/entities';
 
 @Component({
   selector: 'app-login',
@@ -20,7 +24,8 @@ export class LoginComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private userService: UserService,
-    private router: Router
+    private router: Router,
+    private sessionService: SessionService
   ) { }
 
   ngOnInit(): void {
@@ -45,17 +50,14 @@ export class LoginComponent implements OnInit {
         next: (JWTToken: string) => {
 
           if (!JWTToken) return;
-          //TODO: place this code in function
-          const claims = JSON.parse(atob(JWTToken.split(".")[1]));
-          const roleKey = "http://schemas.microsoft.com/ws/2008/06/identity/claims/role"
-          //TODO: handle this case properly
-          const role = claims[roleKey]
-          if (!role) return;
           localStorage.setItem("token", JWTToken);
-          if (role == 1) {
-            this.router.navigate(["admin"])
-          } else {
-            this.router.navigate(["worker"])
+          //TODO: place this code in function
+          const roleId = this.sessionService.getRoleId();
+          if (roleId == RoleType.ADMIN) {
+            this.router.navigateByUrl(RouterPaths.ADMIN)
+          } else if (roleId == RoleType.WORKER) {
+            console.log("success worker");
+            this.router.navigateByUrl(RouterPaths.WORKER)
           }
         },
         error: () => {

@@ -21,6 +21,9 @@ import { JsonPipe } from '@angular/common';
 import { MatTable, MatTableModule } from '@angular/material/table';
 import { ScheduleTableComponent } from './components/schedule-table/schedule-table.component';
 import { NumericDateConverterPipe } from './pipes/numeric-date-converter.pipe';
+import { MatDatepicker, MatDatepickerModule } from '@angular/material/datepicker';
+import { provideNativeDateAdapter } from '@angular/material/core';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
 
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
   return new TranslateHttpLoader(http, '@/assets/i18n/', '.json');
@@ -48,7 +51,9 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     ReactiveFormsModule,
     MatTableModule,
     MatSelectModule,
+    MatDatepickerModule,
     JsonPipe,
+    MatButtonToggleModule,
     NumericDateConverterPipe,
     TranslateModule.forRoot({
       loader: {
@@ -57,6 +62,6 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
         deps: [HttpClient],
       },
     }),
-    BrowserAnimationsModule], providers: [provideHttpClient(withInterceptorsFromDi())]
+    BrowserAnimationsModule], providers: [provideHttpClient(withInterceptorsFromDi()), provideNativeDateAdapter()]
 })
 export class AppModule { }

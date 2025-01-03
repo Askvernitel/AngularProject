@@ -11,7 +11,7 @@ import { environment } from '@env/environment';
 export class WorkerService implements IWorkerService {
   #baseUrl = new URL('Worker', environment.apiUrl);
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   addScheduleRequest(scheduleDto: AddScheduleDTO): Observable<boolean> {
     const token = localStorage.getItem('token');
