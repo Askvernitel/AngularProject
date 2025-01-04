@@ -1,6 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AdminComponent, HomeComponent, LoginComponent, RegisterComponent, WorkerComponent } from "@app/routes";
+import { EditUserComponent } from './routes/admin/edit-user/edit-user.component';
+import { EditJobComponent } from './routes/admin/edit-job/edit-job.component';
+import { adminGuard } from './guards/admin.guard';
+import { workerGuard } from './guards/worker.guard';
 
 const routes: Routes = [
 
@@ -11,10 +15,23 @@ const routes: Routes = [
   {
     path: 'worker',
     component: WorkerComponent,
+    canActivate: [workerGuard],
   },
   {
     path: 'admin',
     component: AdminComponent,
+    canActivate: [adminGuard],
+    children: [
+      {
+        path: "edit-user",
+        component: EditUserComponent,
+      },
+      {
+        path: "edit-job",
+        component: EditJobComponent,
+
+      },
+    ]
   },
   {
     path: 'login',
@@ -31,7 +48,7 @@ const routes: Routes = [
   },
   {
     path: '**',
-    redirectTo: "home",
+    redirectTo: "login",
   }
 ];
 

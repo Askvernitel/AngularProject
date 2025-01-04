@@ -1,1 +1,12 @@
-<app-schedule-table></app-schedule-table>
+<div class="admin-dashboard">
+  <h1></h1>
+  <app-schedule-table></app-schedule-table>
+
+  <div class="control-buttons">
+    <button mat-flat-button routerLink="./edit-user">User Control</button>
+    <button mat-flat-button routerLink="./edit-job">Job Control</button>
+  </div>
+  <div>
+    <router-outlet />
+  </div>
+</div>

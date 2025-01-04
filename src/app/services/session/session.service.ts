@@ -21,6 +21,7 @@ export class SessionService implements ISessionService {
   private getClaims(): any {
     let token: string = localStorage.getItem("token") ?? "";
     if (!token) {
+      this.handleError();
       return;
     }
     const claims = this.parseJWTClaims(token);
@@ -28,7 +29,7 @@ export class SessionService implements ISessionService {
       this.handleError();
       return;
     }
-    return claims
+    return claims;
   }
 
   isAdmin(): boolean {
@@ -53,7 +54,7 @@ export class SessionService implements ISessionService {
   }
   getRoleId(): number {
     const claims = this.getClaims();
-    if (!claims) return -1;
+    if (!claims) return 0;
     return claims["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"]
   }
 
@@ -65,7 +66,7 @@ export class SessionService implements ISessionService {
 
   getId(): number {
     const claims = this.getClaims();
-    if (!claims) return -1;
+    if (!claims) return 0;
     return claims["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier"];
   }
 
