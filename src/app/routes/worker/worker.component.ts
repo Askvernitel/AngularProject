@@ -45,14 +45,12 @@ export class WorkerComponent implements OnInit {
 
     this.setShiftHoursDate(startTime, shift, "startTime");
     this.setShiftHoursDate(endTime, shift, "endTime");
-
-    return new AddScheduleDTO(startTime, endTime, this.sessionService.getId());
+    return new AddScheduleDTO(startTime, endTime, this.sessionService.id);
   }
 
 
   protected handleSubmit() {
     if (this.workerScheduleForm.invalid) return;
-
     const scheduleRequest = this.ScheduleFormToDTO();
     this.workerService.addScheduleRequest(scheduleRequest).subscribe(console.log);
 
