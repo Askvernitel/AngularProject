@@ -1,7 +1,7 @@
 export interface ISessionService {
-  getEmail(): string;
-  getId(): number;
-  getName(): string;
-  getLastname(): string;
-  getRoleId(): number;
+  get email(): string;
+  get id(): number;
+  get firstName(): string;
+  get lastName(): string;
+  get roleId(): number;
 }
