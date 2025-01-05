@@ -1,73 +1,107 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
 import { RoleType } from '@app/enums/role-type';
-import { RouterPaths } from '@app/enums/router-paths';
 import { ISessionService } from '@app/interfaces';
-import { UserService } from '../user/user.service';
+import { StorageService } from '@app/services';
+import { ParsedJWTClaims } from '@app/types';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class SessionService implements ISessionService {
+  #claims: ParsedJWTClaims | undefined;
+  #firstName: string | undefined;
+  #lastName: string | undefined;
+  #email: string | undefined;
+  #roleId: number | undefined;
+  #id: number | undefined;
 
-  constructor(private router: Router, private userService: UserService, private route: ActivatedRoute) { }
+  constructor(private storage: StorageService) {
+    this.update();
+    storage.changes.subscribe({
+      next: ({ key, value }) => {
+        if (key == 'token') {
+          this.update(value);
+        }
+      },
+    });
+  }
+
   private handleError() {
-    localStorage.removeItem("token");
+    this.storage.removeItem('token');
     //this.router.navigateByUrl(RouterPaths.LOGIN);
   }
-  private parseJWTClaims(JWTToken: string): any {
-    return JSON.parse(atob(JWTToken?.split(".")[1]));
-  }
-  private getClaims(): any {
-    let token: string = localStorage.getItem("token") ?? "";
-    if (!token) {
+
+  private parseJWTClaims(JWTToken: string): ParsedJWTClaims | undefined {
+    try {
+      return JSON.parse(atob(JWTToken.split('.')[1]));
+    } catch (error) {
       this.handleError();
-      return;
     }
-    const claims = this.parseJWTClaims(token);
-    if (!claims) {
-      this.handleError();
-      return;
-    }
-    return claims;
+    return;
   }
 
-  isAdmin(): boolean {
-    const roleId = this.getRoleId();
+  private update(): void;
+  private update(value: string): void;
+
+  private update(value?: string): void {
+    const token: string | null = value ?? localStorage.getItem('token');
+    this.#claims = token ? this.parseJWTClaims(token) : undefined;
+
+    this.#email =
+      this.#claims?.[
+        'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress'
+      ];
+
+    this.#id = Number(
+      this.#claims?.[
+        'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier'
+      ],
+    );
+
+    this.#firstName =
+      this.#claims?.[
+        'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/givenname'
+      ];
+
+    this.#lastName =
+      this.#claims?.[
+        'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/surname'
+      ];
+
+    this.#roleId = Number(
+      this.#claims?.[
+        'http://schemas.microsoft.com/ws/2008/06/identity/claims/role'
+      ],
+    );
+  }
+
+  public isAdmin(): boolean {
+    const roleId = this.#roleId;
     return roleId === RoleType.ADMIN;
   }
-  isWorker(): boolean {
-    const roleId = this.getRoleId();
+
+  public isWorker(): boolean {
+    const roleId = this.#roleId;
     return roleId === RoleType.WORKER;
   }
 
-  getName(): string {
-    const claims = this.getClaims();
-    if (!claims) return "";
-    return claims["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/givenname"];
-
-  }
-  getLastname(): string {
-    const claims = this.getClaims();
-    if (!claims) return "";
-    return claims["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/surname"];
-  }
-  getRoleId(): number {
-    const claims = this.getClaims();
-    if (!claims) return 0;
-    return claims["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"]
+  get email(): string {
+    return this.#email ?? '';
   }
 
-  getEmail(): string {
-    const claims = this.getClaims();
-    if (!claims) return "";
-    return claims["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress"];
+  get id(): number {
+    return this.#id ?? 0;
   }
 
-  getId(): number {
-    const claims = this.getClaims();
-    if (!claims) return 0;
-    return claims["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier"];
+  get firstName(): string {
+    return this.#firstName ?? '';
   }
 
+  get lastName(): string {
+    return this.#lastName ?? '';
+  }
+
+  get roleId(): number {
+    return this.#roleId ?? 0;
+  }
 }
