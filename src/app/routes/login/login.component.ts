@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { UserService } from '@app/services';
+import { StorageService, UserService } from '@app/services';
 import { LoginDTO } from '@app/dto';
 import { Router } from '@angular/router';
 import { RouterPaths } from '@app/enums/router-paths';
@@ -20,9 +20,11 @@ export class LoginComponent implements OnInit {
     private userService: UserService,
     private router: Router,
     private sessionService: SessionService,
-  ) {}
+    private storageService: StorageService
+  ) { }
 
   ngOnInit(): void {
+    //this.storageService.removeItem("token")
     this.formInit();
   }
 
@@ -42,16 +44,14 @@ export class LoginComponent implements OnInit {
       next: (JWTToken: string) => {
         if (!JWTToken) return;
         localStorage.setItem('token', JWTToken);
-        //TODO: place this code in function
         const roleId = this.sessionService.roleId;
         if (roleId == RoleType.ADMIN) {
           this.router.navigateByUrl(RouterPaths.ADMIN);
         } else if (roleId == RoleType.WORKER) {
-          console.log('success worker');
           this.router.navigateByUrl(RouterPaths.WORKER);
         }
       },
-      error: () => {},
+      error: () => { },
     });
   }
 }

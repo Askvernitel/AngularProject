@@ -18,7 +18,7 @@ import {
   WorkerComponent,
   AdminComponent,
 } from '@app/routes';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NavBarComponent } from '@components/nav-bar/nav-bar.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatCardModule } from '@angular/material/card';
@@ -26,7 +26,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSelectModule } from '@angular/material/select';
-import { JsonPipe } from '@angular/common';
+import { AsyncPipe, JsonPipe } from '@angular/common';
 import { MatTableModule } from '@angular/material/table';
 import { ScheduleTableComponent } from '@components/schedule-table/schedule-table.component';
 import { NumericDateConverterPipe } from './pipes/numeric-date-converter.pipe';
@@ -34,6 +34,13 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { provideNativeDateAdapter } from '@angular/material/core';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { StorageService } from '@app/services';
+import { JobIdToTitlePipe } from './pipes/job-id-to-title.pipe';
+import { RoleIdToTitlePipe } from './pipes/role-id-to-title.pipe';
+import { MatDialogModule } from '@angular/material/dialog';
+import { EditUserComponent } from './routes/admin/edit-user/edit-user.component';
+import { ChangeRoleDialogComponent } from '@dialogs/change-role-dialog/change-role-dialog.component';
+import { DeleteUserDialogComponent } from '@dialogs/delete-user-dialog/delete-user-dialog.component';
+import { EditJobComponent } from './routes/admin/edit-job/edit-job.component';
 
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
   return new TranslateHttpLoader(http, '@/assets/i18n/', '.json');
@@ -49,11 +56,19 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     NavBarComponent,
     WorkerComponent,
     AdminComponent,
+    EditUserComponent,
+    ChangeRoleDialogComponent,
+    DeleteUserDialogComponent,
+    EditJobComponent,
     ScheduleTableComponent,
   ],
   bootstrap: [AppComponent],
   imports: [
     BrowserModule,
+    MatSelectModule,
+    AsyncPipe,
+    RoleIdToTitlePipe,
+    MatDialogModule,
     MatFormFieldModule,
     MatToolbarModule,
     MatCardModule,
@@ -62,8 +77,10 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     MatButtonModule,
     ReactiveFormsModule,
     MatTableModule,
+    JobIdToTitlePipe,
     MatSelectModule,
     MatDatepickerModule,
+    FormsModule,
     JsonPipe,
     MatButtonToggleModule,
     NumericDateConverterPipe,
@@ -82,4 +99,4 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     StorageService,
   ],
 })
-export class AppModule {}
+export class AppModule { }

@@ -102,7 +102,6 @@ export class ScheduleTableComponent implements OnInit {
   }
   protected isMorningShift(stringDate: string): boolean {
     let date = new Date(stringDate);
-    console.log(date);
     let morningShiftLowerBound = 8;//8am
     let morningShiftUpperBound = 16; //4pm
     return date.getHours() >= morningShiftLowerBound && date.getHours() <= morningShiftUpperBound;
