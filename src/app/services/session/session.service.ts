@@ -49,28 +49,28 @@ export class SessionService implements ISessionService {
 
     this.#email =
       this.#claims?.[
-        'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress'
+      'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress'
       ];
 
     this.#id = Number(
       this.#claims?.[
-        'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier'
+      'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier'
       ],
     );
 
     this.#firstName =
       this.#claims?.[
-        'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/givenname'
+      'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/givenname'
       ];
 
     this.#lastName =
       this.#claims?.[
-        'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/surname'
+      'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/surname'
       ];
 
     this.#roleId = Number(
       this.#claims?.[
-        'http://schemas.microsoft.com/ws/2008/06/identity/claims/role'
+      'http://schemas.microsoft.com/ws/2008/06/identity/claims/role'
       ],
     );
   }

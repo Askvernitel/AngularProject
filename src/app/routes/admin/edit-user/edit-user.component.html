@@ -1,15 +1,36 @@
 <div class="edit-user-div">
-  <table>
-    <thead>
-      <td *ngFor="let colName of columns">
+  <table class="t">
+    <thead class="t-h">
+      <th *ngFor="let colName of columns">
         {{colName}}
-      </td>
+      </th>
     </thead>
 
-    <tbody>
-      <tr *ngFor="let user of (us)">
+    <tbody class="t-b">
+      <tr *ngFor="let user of (users$ | async) " class="t-r">
+        <td>
+          {{user.id}}
+        </td>
+        <td>
 
+          {{user.firstName}}
+        </td>
+        <td>
 
+          {{user.lastName}}
+        </td>
+        <td>
+          {{user.jobId | jobIdToTitle | async }}
+        </td>
+        <td>
+
+          {{user.roleId | roleIdToTitle}}
+        </td>
+
+        <td class="edit-buttons">
+          <button mat-raised-button (click)="handleChangeRole(user.id)">Change Role</button>
+          <button mat-raised-button (click)="handleDeleteUser(user)">Delete User</button>
+        </td>
       </tr>
     </tbody>
 

@@ -1,2 +1,29 @@
 <div class="edit-job-div">
+  <button mat-raised-button>Add Job</button>
+  <table class="t">
+    <thead class="t-h">
+      <th *ngFor="let colName of columns">
+        {{colName}}
+      </th>
+    </thead>
+
+    <tbody class="t-b">
+      <tr *ngFor="let job of (jobs$ | async) " class="t-r">
+        <td>
+          {{job.id}}
+        </td>
+
+        <td>
+          {{job.title}}
+        </td>
+        <td class="edit-buttons">
+          <button mat-raised-button (click)="handleDeleteJob(job.id)">
+            Delete
+          </button>
+        </td>
+      </tr>
+    </tbody>
+
+  </table>
+
 </div>

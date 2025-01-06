@@ -5,6 +5,7 @@ import { EditUserComponent } from './routes/admin/edit-user/edit-user.component'
 import { EditJobComponent } from './routes/admin/edit-job/edit-job.component';
 import { adminGuard } from './guards/admin.guard';
 import { workerGuard } from './guards/worker.guard';
+import { loginAndRegisterGuard } from './guards/login-and-register.guard';
 
 const routes: Routes = [
 
@@ -36,10 +37,12 @@ const routes: Routes = [
   {
     path: 'login',
     component: LoginComponent,
+    //canActivate: [loginAndRegisterGuard]
   },
   {
     path: 'register',
     component: RegisterComponent,
+    //canActivate: [loginAndRegisterGuard]
   },
   {
     path: '',
