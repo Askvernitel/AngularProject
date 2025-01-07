@@ -12,7 +12,6 @@ import {
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { UnlessDirective } from './directives/unless.directive';
 import {
-  HomeComponent,
   LoginComponent,
   RegisterComponent,
   WorkerComponent,
@@ -26,7 +25,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSelectModule } from '@angular/material/select';
-import { AsyncPipe, JsonPipe } from '@angular/common';
+import { AsyncPipe, DatePipe, JsonPipe } from '@angular/common';
 import { MatTableModule } from '@angular/material/table';
 import { ScheduleTableComponent } from '@components/schedule-table/schedule-table.component';
 import { NumericDateConverterPipe } from './pipes/numeric-date-converter.pipe';
@@ -41,6 +40,11 @@ import { EditUserComponent } from './routes/admin/edit-user/edit-user.component'
 import { ChangeRoleDialogComponent } from '@dialogs/change-role-dialog/change-role-dialog.component';
 import { DeleteUserDialogComponent } from '@dialogs/delete-user-dialog/delete-user-dialog.component';
 import { EditJobComponent } from './routes/admin/edit-job/edit-job.component';
+import { AddJobDialogComponent } from './components/dialogs/add-job-dialog/add-job-dialog.component';
+import { DeleteJobDialogComponent } from './components/dialogs/delete-job-dialog/delete-job-dialog.component';
+import { EditScheduleComponent } from './routes/admin/edit-schedule/edit-schedule.component';
+import { DeleteScheduleDialogComponent } from './components/dialogs/delete-schedule-dialog/delete-schedule-dialog.component';
+import { ApproveScheduleDialogComponent } from './components/dialogs/approve-schedule-dialog/approve-schedule-dialog.component';
 
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
   return new TranslateHttpLoader(http, '@/assets/i18n/', '.json');
@@ -50,7 +54,6 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
   declarations: [
     AppComponent,
     UnlessDirective,
-    HomeComponent,
     LoginComponent,
     RegisterComponent,
     NavBarComponent,
@@ -61,12 +64,18 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     DeleteUserDialogComponent,
     EditJobComponent,
     ScheduleTableComponent,
+    AddJobDialogComponent,
+    DeleteJobDialogComponent,
+    EditScheduleComponent,
+    DeleteScheduleDialogComponent,
+    ApproveScheduleDialogComponent,
   ],
   bootstrap: [AppComponent],
   imports: [
     BrowserModule,
     MatSelectModule,
     AsyncPipe,
+    DatePipe,
     RoleIdToTitlePipe,
     MatDialogModule,
     MatFormFieldModule,

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
 import { BehaviorSubject, catchError, map, Observable, of, throwError } from 'rxjs';
 import { JobDTO } from '@app/dto';
 import { IAdminService } from '@app/interfaces';
@@ -14,15 +14,17 @@ export class AdminService implements IAdminService {
   constructor(private http: HttpClient) { }
 
   private handleError(error: HttpErrorResponse): Observable<boolean> {
+    console.log(error);
     console.error(`Error: ${error}`);
     return of(false);
   }
 
   approveScheduleRequest(scheduleId: number): Observable<boolean> {
+
     return this.http
-      .post(`${this.#baseUrl}/approve-schedule-request`, {
-        scheduleId,
-      })
+      .post(`${this.#baseUrl}/approve-schedule-request?scheduleId=${scheduleId}`, {
+      }
+      )
       .pipe(
         map(() => true),
         catchError(this.handleError),

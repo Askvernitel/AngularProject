@@ -8,8 +8,10 @@ import {
   ValidatorFn,
   Validators,
 } from '@angular/forms';
+import { Router } from '@angular/router';
 import { GetJobDTO, JobDTO, UserDTO } from '@app/dto';
 import { User } from '@app/entities';
+import { RouterPaths } from '@app/enums/router-paths';
 import { UserService } from '@app/services';
 import { passwordMatchValidator } from '@app/validators/password-match.validator';
 import { Observable } from 'rxjs';
@@ -25,6 +27,7 @@ export class RegisterComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private userService: UserService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -56,10 +59,10 @@ export class RegisterComponent implements OnInit {
     //register
     this.userService.register(user).subscribe({
       next: () => {
-
+        this.router.navigateByUrl(RouterPaths.LOGIN);
       },
       error: () => {
-
+        console.error("register error");
       },
     });
   }

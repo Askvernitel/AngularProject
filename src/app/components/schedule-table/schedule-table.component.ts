@@ -23,9 +23,9 @@ type ScheduleTableData = {
 export class ScheduleTableComponent implements OnInit {
   data!: ScheduleDTO[];
   currentWeekData: any[] = [];
-
   columns: string[] = ["Jobs", "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
   dayAndMonthColumns: Date[] = []; // always has length of 7
+
 
   ngOnInit(): void {
   }

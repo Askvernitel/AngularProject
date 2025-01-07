@@ -1,0 +1,7 @@
+<h2 mat-dialog-title>You Are Approving Schedule By: {{data.schedule.firstName}} {{data.schedule.lastName}} </h2>
+<mat-dialog-content>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button (click)="handleNoClick()">Close</button>
+  <button mat-button [mat-dialog-close]="data.schedule">Approve</button>
+</mat-dialog-actions>

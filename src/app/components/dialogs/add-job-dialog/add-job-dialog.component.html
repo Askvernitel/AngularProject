@@ -1,0 +1,12 @@
+<h2 mat-dialog-title>Add Job Here</h2>
+
+<mat-dialog-content>
+  <mat-form-field>
+    <mat-label>Enter New Job Name</mat-label>
+    <input matInput type="text" name="jobTitle" placeholder="Job" [(ngModel)]="returnJob.title" />
+  </mat-form-field>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button (click)="handleNoClick()">Close</button>
+  <button mat-button [mat-dialog-close]="returnJob">Add</button>
+</mat-dialog-actions>

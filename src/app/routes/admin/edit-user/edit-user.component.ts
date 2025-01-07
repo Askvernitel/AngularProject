@@ -10,6 +10,7 @@ import { AdminService, UserService } from '@app/services';
 import { Observable } from 'rxjs';
 import { ChangeRoleDialogComponent } from '@dialogs/change-role-dialog/change-role-dialog.component';
 import { DeleteUserDialogComponent } from '@dialogs/delete-user-dialog/delete-user-dialog.component';
+import { EventEmitter } from 'stream';
 
 
 export type ChangeRoleDialog = {
@@ -30,11 +31,12 @@ export class EditUserComponent implements OnInit {
   columns = ["Id", "First Name", "Last Name", "Job", "Role", "Operations"];
   users$!: Observable<GetUsersDTO[]>;
 
-
   ngOnInit(): void {
+    this.update();
+  }
+  private update() {
     this.fetchUserData();
   }
-
   private fetchUserData() {
 
     this.users$ = this.userService.getUsers();
@@ -49,7 +51,7 @@ export class EditUserComponent implements OnInit {
       const roleIdNum: number = Number(roleId);
       if (roleIdNum !== undefined) {
         this.adminService.changeUserRole(id, roleIdNum).subscribe((changed: boolean) => {
-          if (changed) this.fetchUserData();
+          if (changed) this.update();
         });
       }
     });
@@ -61,8 +63,7 @@ export class EditUserComponent implements OnInit {
 
       if (userId !== undefined) {
         this.adminService.deleteUserById(userId).subscribe((deleted: boolean) => {
-          console.log(deleted);
-          if (deleted) this.fetchUserData();
+          if (deleted) this.update();
         });
       }
     });

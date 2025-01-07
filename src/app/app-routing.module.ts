@@ -1,18 +1,15 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AdminComponent, HomeComponent, LoginComponent, RegisterComponent, WorkerComponent } from "@app/routes";
+import { AdminComponent, LoginComponent, RegisterComponent, WorkerComponent } from "@app/routes";
 import { EditUserComponent } from './routes/admin/edit-user/edit-user.component';
 import { EditJobComponent } from './routes/admin/edit-job/edit-job.component';
 import { adminGuard } from './guards/admin.guard';
 import { workerGuard } from './guards/worker.guard';
 import { loginAndRegisterGuard } from './guards/login-and-register.guard';
+import { EditScheduleComponent } from './routes/admin/edit-schedule/edit-schedule.component';
 
 const routes: Routes = [
 
-  {
-    path: 'home',
-    component: HomeComponent,
-  },
   {
     path: 'worker',
     component: WorkerComponent,
@@ -31,6 +28,10 @@ const routes: Routes = [
         path: "edit-job",
         component: EditJobComponent,
 
+      },
+      {
+        path: "edit-schedule",
+        component: EditScheduleComponent,
       },
     ]
   },
