@@ -1,3 +1,3 @@
 export class JobDTO {
-  constructor(public title: string | null) {}
+  constructor(public title: string | null) { }
 }

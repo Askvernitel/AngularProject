@@ -1,0 +1,52 @@
+<div class="edit-sched-div">
+  <table class="t">
+    <thead class="t-h">
+      <th *ngFor="let colName of columns">
+        {{colName}}
+      </th>
+    </thead>
+
+    <tbody class="t-b">
+      <tr *ngFor="let schedule of (schedules$ | async) " class="t-r">
+        <td>
+          {{schedule.id}}
+        </td>
+        <td>
+
+          {{schedule.startTime | date:'medium'}}
+        </td>
+        <td>
+
+          {{schedule.endTime | date:'medium'}}
+        </td>
+        <td>
+          {{schedule.userId }}
+        </td>
+        <td>
+          {{schedule.firstName}}
+        </td>
+
+        <td>
+          {{schedule.lastName}}
+        </td>
+        <td>
+          {{schedule.jobId}}
+        </td>
+        <td>
+          {{schedule.jobTitle}}
+        </td>
+        <td>
+          {{schedule.isApproved ? "Approved":"Not Approved"}}
+        </td>
+        <td class="edit-buttons">
+
+          <button mat-raised-button (click)="handleDeleteSchedule(schedule)">Delete</button>
+          <button mat-raised-button *ngIf="!schedule.isApproved"
+            (click)="handleApproveSchedule(schedule)">Approve</button>
+        </td>
+      </tr>
+    </tbody>
+
+  </table>
+
+</div>

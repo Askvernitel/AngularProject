@@ -3,7 +3,6 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AddScheduleDTO, ScheduleDTO } from '@app/dto';
 import { WorkerService } from '@app/services';
 import { SessionService } from '@app/services/session/session.service';
-import { scheduleReadableStreamLike } from 'rxjs/internal/scheduled/scheduleReadableStreamLike';
 
 @Component({
   selector: 'app-worker',
@@ -16,7 +15,6 @@ export class WorkerComponent implements OnInit {
   }
   ngOnInit(): void {
     this.formInit();
-    this.workerScheduleForm.valueChanges.subscribe(console.log);
   }
 
   private formInit(): void {
@@ -26,22 +24,21 @@ export class WorkerComponent implements OnInit {
     })
   }
   private setShiftHoursDate(date: Date, shift: string, type: string): void {
-    if (shift === "morning" && type === "endTime") {
+    if (shift == "morning" && type == "endTime") {
       date.setHours(16);
-    } else if (shift === "morning" && type === "startTime") {
+    } else if (shift == "morning" && type == "startTime") {
       date.setHours(8);
-    } else if (shift === "evening" && type === "startTime") {
+    } else if (shift == "evening" && type == "startTime") {
       date.setHours(17);
-    } else if (shift === "evening" && type == "endTime") {
+    } else if (shift == "evening" && type == "endTime") {
       date.setHours(24);
     }
 
   }
-  private ScheduleFormToDTO(): AddScheduleDTO {
-    const scheduleForm = this.workerScheduleForm.value as Object;
+  private scheduleFormToDTO(): AddScheduleDTO {
     let shift = this.workerScheduleForm.value.shift;
-    let startTime = this.workerScheduleForm.value.date;
-    let endTime = this.workerScheduleForm.value.date;
+    let startTime = new Date(this.workerScheduleForm.value.date);
+    let endTime = new Date(this.workerScheduleForm.value.date);
 
     this.setShiftHoursDate(startTime, shift, "startTime");
     this.setShiftHoursDate(endTime, shift, "endTime");
@@ -51,7 +48,7 @@ export class WorkerComponent implements OnInit {
 
   protected handleSubmit() {
     if (this.workerScheduleForm.invalid) return;
-    const scheduleRequest = this.ScheduleFormToDTO();
+    const scheduleRequest = this.scheduleFormToDTO();
     this.workerService.addScheduleRequest(scheduleRequest).subscribe(console.log);
 
   }

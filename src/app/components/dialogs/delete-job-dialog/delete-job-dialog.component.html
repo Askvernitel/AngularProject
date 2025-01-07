@@ -1,0 +1,8 @@
+<h2 mat-dialog-title>You Are Deleting Job: </h2>
+<mat-dialog-content>
+  Click The Delete To Delete Job
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button (click)="handleNoClick()">Close</button>
+  <button mat-button [mat-dialog-close]="data.job.id">Delete</button>
+</mat-dialog-actions>

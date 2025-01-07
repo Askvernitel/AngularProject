@@ -24,7 +24,7 @@ export class LoginComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    //this.storageService.removeItem("token")
+    //this.userService.logout();
     this.formInit();
   }
 
@@ -43,7 +43,7 @@ export class LoginComponent implements OnInit {
     this.userService.login(user).subscribe({
       next: (JWTToken: string) => {
         if (!JWTToken) return;
-        localStorage.setItem('token', JWTToken);
+        this.storageService.setItem('token', JWTToken);
         const roleId = this.sessionService.roleId;
         if (roleId == RoleType.ADMIN) {
           this.router.navigateByUrl(RouterPaths.ADMIN);

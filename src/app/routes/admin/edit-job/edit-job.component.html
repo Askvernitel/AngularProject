@@ -1,5 +1,5 @@
 <div class="edit-job-div">
-  <button mat-raised-button>Add Job</button>
+  <button mat-raised-button (click)="handleAddJob()">Add Job</button>
   <table class="t">
     <thead class="t-h">
       <th *ngFor="let colName of columns">
@@ -17,7 +17,7 @@
           {{job.title}}
         </td>
         <td class="edit-buttons">
-          <button mat-raised-button (click)="handleDeleteJob(job.id)">
+          <button mat-raised-button (click)="handleDeleteJob(job)">
             Delete
           </button>
         </td>

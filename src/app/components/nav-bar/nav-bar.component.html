@@ -14,7 +14,9 @@
 
 </div>-->
   <span class="spacer"></span>
-  <button mat-raised-button class="log-out-button" (click)="this.userService.logout()">
+
+  <button *ngIf="hasToken" mat-raised-button class="log-out-button" (click)="this.userService.logout()">
     Log Out
   </button>
+
 </mat-toolbar>
