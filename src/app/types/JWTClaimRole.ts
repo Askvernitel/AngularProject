@@ -1,3 +1,7 @@
+/**
+ * Represents the possible roles that can be assigned to a JWT (JSON Web Token) claim.
+ * @see https://tools.ietf.org/html/rfc7519
+ */
 export type JWTClaimRole =
   | 'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress'
   | 'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/givenname'

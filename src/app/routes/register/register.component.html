@@ -8,26 +8,26 @@
         <mat-form-field>
           <mat-label>First Name</mat-label>
           <input matInput placeholder="First Name" formControlName="firstName" type="text"
-            (blur)="handleRegisterError()">
+            (blur)="handleError()">
           <mat-error *ngIf="registerError.firstNameError">{{registerError.firstNameError}}</mat-error>
         </mat-form-field>
 
         <mat-form-field>
           <mat-label>Last Name</mat-label>
-          <input matInput placeholder="Last Name" formControlName="lastName" type="text" (blur)="handleRegisterError()">
+          <input matInput placeholder="Last Name" formControlName="lastName" type="text" (blur)="handleError()">
           <mat-error *ngIf="registerError.lastNameError">{{registerError.lastNameError}}</mat-error>
         </mat-form-field>
 
         <mat-form-field>
           <mat-label>Email</mat-label>
-          <input matInput placeholder="Email" formControlName="email" type="email" (blur)="handleRegisterError()">
+          <input matInput placeholder="Email" formControlName="email" type="email" (blur)="handleError()">
           <mat-error *ngIf="registerError.emailError">{{registerError.emailError}}</mat-error>
         </mat-form-field>
 
         <mat-form-field>
           <mat-label>Password</mat-label>
           <input matInput placeholder="******" formControlName="password" [type]="hiddenPassword ? 'password': 'text'"
-            (blur)="handleRegisterError()">
+            (blur)="handleError()">
 
           <button mat-icon-button matSuffix (click)="changePasswordState('password')">
             <mat-icon>{{hiddenPassword ? 'visibility_off' : 'visibility_on'}}</mat-icon>
@@ -37,7 +37,7 @@
         <mat-form-field>
           <mat-label>Confirm Password</mat-label>
           <input matInput placeholder="******" formControlName="confirmPassword"
-            [type]="hiddenConfirmPassword ? 'password':'text'" (blur)="handleRegisterError()">
+            [type]="hiddenConfirmPassword ? 'password':'text'" (blur)="handleError()">
           <button mat-icon-button matSuffix (click)="changePasswordState('confirmPassword')">
             <mat-icon>{{hiddenConfirmPassword ? 'visibility_off' : 'visibility_on'}}</mat-icon>
           </button>
@@ -47,10 +47,9 @@
 
         <mat-form-field>
           <mat-label>Jobs</mat-label>
-          <mat-select formControlName="jobId" (opened)="handleRegisterError()">
+          <mat-select formControlName="jobId" (opened)="handleError()">
             <!--            <mat-option>None</mat-option>-->
-
-            <mat-option *ngFor="let job of (jobs$| async)" [value]="job.id">{{job.title}}</mat-option>
+            <mat-option *ngFor="let job of (jobs$ | async)" [value]="job.id">{{job.title}}</mat-option>
           </mat-select>
           <mat-error *ngIf="registerError.jobIdError">{{registerError.jobIdError}}</mat-error>
         </mat-form-field>

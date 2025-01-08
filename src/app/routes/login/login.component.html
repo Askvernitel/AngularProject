@@ -7,14 +7,14 @@
         <mat-form-field>
           <mat-label>Email</mat-label>
           <input matInput placeholder="Email" formControlName="email" type="email" (blur)="handleLoginError()">
-          <mat-error>{{emailError}}</mat-error>
+          <mat-error>{{loginError.emailError}}</mat-error>
         </mat-form-field>
         <mat-form-field>
           <mat-label>Password</mat-label>
           <input matInput placeholder="******" formControlName="password" type="password" (blur)="handleLoginError()">
-          <mat-error>{{passwordError}}</mat-error>
+          <mat-error>{{loginError.passwordError}}</mat-error>
         </mat-form-field>
-        <mat-error *ngIf="loginError">{{loginError}}</mat-error>
+        <mat-error *ngIf="loginError.loginError">{{loginError.loginError}}</mat-error>
         <div class="login-buttons">
           <button mat-raised-button style="">Login</button>
           <button mat-button routerLink="/register">Not Registered Yet?</button>

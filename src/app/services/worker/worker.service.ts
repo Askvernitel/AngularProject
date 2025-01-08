@@ -5,14 +5,24 @@ import { AddScheduleDTO } from '@app/dto';
 import { IWorkerService } from '@app/interfaces';
 import { environment } from '@env/environment';
 
+/**
+ * Service for worker-related operations.
+ */
 @Injectable({
   providedIn: 'root',
 })
 export class WorkerService implements IWorkerService {
+  /**
+   * Base URL for the worker API.
+   * @private
+   */
   #baseUrl = new URL('Worker', environment.apiUrl);
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
+  /**
+   * @inheritDoc
+   */
   addScheduleRequest(scheduleDto: AddScheduleDTO): Observable<boolean> {
     const token = localStorage.getItem('token');
 
