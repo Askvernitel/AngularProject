@@ -45,6 +45,10 @@ import { DeleteJobDialogComponent } from './components/dialogs/delete-job-dialog
 import { EditScheduleComponent } from './routes/admin/edit-schedule/edit-schedule.component';
 import { DeleteScheduleDialogComponent } from './components/dialogs/delete-schedule-dialog/delete-schedule-dialog.component';
 import { ApproveScheduleDialogComponent } from './components/dialogs/approve-schedule-dialog/approve-schedule-dialog.component';
+import { MatIcon } from '@angular/material/icon';
+import { LoadingSpinnerComponent } from './components/loading-spinner/loading-spinner.component';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatProgressBar, MatProgressBarModule } from '@angular/material/progress-bar';
 
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
   return new TranslateHttpLoader(http, '@/assets/i18n/', '.json');
@@ -69,11 +73,14 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     EditScheduleComponent,
     DeleteScheduleDialogComponent,
     ApproveScheduleDialogComponent,
+    LoadingSpinnerComponent,
   ],
   bootstrap: [AppComponent],
   imports: [
     BrowserModule,
     MatSelectModule,
+    MatProgressBarModule,
+    MatProgressSpinnerModule,
     AsyncPipe,
     DatePipe,
     RoleIdToTitlePipe,
@@ -93,6 +100,7 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     JsonPipe,
     MatButtonToggleModule,
     NumericDateConverterPipe,
+    MatIcon,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,

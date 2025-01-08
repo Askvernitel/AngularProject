@@ -38,12 +38,12 @@ const routes: Routes = [
   {
     path: 'login',
     component: LoginComponent,
-    //canActivate: [loginAndRegisterGuard]
+    canActivate: [loginAndRegisterGuard]
   },
   {
     path: 'register',
     component: RegisterComponent,
-    //canActivate: [loginAndRegisterGuard]
+    canActivate: [loginAndRegisterGuard]
   },
   {
     path: '',

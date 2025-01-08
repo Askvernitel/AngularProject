@@ -1,9 +1,10 @@
 <div class="flex-container">
-  <div class="button-container">
-    <button (click)="switchToPreviousWeek()" mat-raised-button>Previous Week</button>
-    <button (click)="switchToNextWeek()" mat-raised-button>Next Week</button>
+  <div class="button-container" #buttons>
+    <button (click)="switchToPreviousWeek()" mat-raised-button #prev>Previous Week</button>
+    <button (click)="switchToNextWeek()" mat-raised-button #next>Next Week</button>
   </div>
-  <table class="mat-elevation-z7">
+  <table class="mat-elevation-z7" *ngIf="dataIsLoaded; else loadingSpinner">
+
     <thead>
       <tr>
         <th class="mat-header-cell">{{ columns[0] }}</th>
@@ -36,5 +37,10 @@
         </td>
       </tr>
     </tbody>
+
   </table>
+  <ng-template #loadingSpinner>
+    <app-loading-spinner></app-loading-spinner>
+  </ng-template>
+
 </div>

@@ -27,7 +27,7 @@ export class UserService implements IUserService {
   private handleError(error: HttpErrorResponse) {
     console.error(error);
 
-    return throwError(() => new Error(error.message));
+    return throwError(() => new Error(String(error.status)));
   }
 
   register(userDto: UserDTO): Observable<User> {

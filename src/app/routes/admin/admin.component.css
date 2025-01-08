@@ -4,3 +4,8 @@
   align-items: center;
   row-gap: 30px;
 }
+
+.control-buttons {
+  display: flex;
+  column-gap: 10px;
+}

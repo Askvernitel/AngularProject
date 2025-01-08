@@ -5,7 +5,6 @@ export const passwordMatchValidator: ValidatorFn = (control: AbstractControl): V
   const confirmPassword = control.get('confirmPassword')?.value;
 
   if (password !== confirmPassword) {
-    console.error("Not Match");
     return { passwordNotMatch: true };
   }
 
