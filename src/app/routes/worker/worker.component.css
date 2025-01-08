@@ -25,3 +25,17 @@
   justify-content: center;
   align-items: center;
 }
+
+.schedule-button {
+  background-color: rgb(54, 69, 79) !important;
+  color: white;
+}
+
+.mdc-snackbar {
+  background-color: green !important;
+}
+
+
+::ng-deep .success-snackbar {
+  --mdc-snackbar-container-color: green !important;
+}

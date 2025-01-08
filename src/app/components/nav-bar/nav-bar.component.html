@@ -1,18 +1,9 @@
 <mat-toolbar class="nav">
-  <span>Job Scheduler</span>
-  <!--
-  <div *ngIf="!isAdmin && !isWorker" class="links">
-    <a mat-button routerLink="/login" routerLinkActive="active">Login</a>
-    <a mat-button routerLink="/register" routerLinkActive="active">Register</a>
-</div>-->
-  <!--
-  <div class="links">
-
+  <div>
+    <span>Job Scheduler</span>
+    <span *ngIf="hasToken"> <strong> {{isAdmin?"Admin":"Worker"}}:</strong> {{sessionService.firstName}}
+      {{sessionService.lastName}}</span>
   </div>
-
-  <div class="links">
-
-</div>-->
   <span class="spacer"></span>
 
   <button *ngIf="hasToken" mat-raised-button class="log-out-button" (click)="this.userService.logout()">

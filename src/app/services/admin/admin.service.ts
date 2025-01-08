@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
-import { BehaviorSubject, catchError, map, Observable, of, throwError } from 'rxjs';
+import { BehaviorSubject, catchError, map, Observable, of, Subject, throwError } from 'rxjs';
 import { JobDTO } from '@app/dto';
 import { IAdminService } from '@app/interfaces';
 import { environment } from '@env/environment';
@@ -10,6 +10,10 @@ import { environment } from '@env/environment';
 })
 export class AdminService implements IAdminService {
   readonly #baseUrl = new URL('Admin', environment.apiUrl);
+  changes: Subject<boolean> = new Subject();
+  private update() {
+    this.changes.next(true);
+  }
 
   constructor(private http: HttpClient) { }
 
@@ -20,13 +24,12 @@ export class AdminService implements IAdminService {
   }
 
   approveScheduleRequest(scheduleId: number): Observable<boolean> {
-
     return this.http
       .post(`${this.#baseUrl}/approve-schedule-request?scheduleId=${scheduleId}`, {
       }
       )
       .pipe(
-        map(() => true),
+        map(() => { this.update(); return true; }),
         catchError(this.handleError),
       );
   }
@@ -38,34 +41,36 @@ export class AdminService implements IAdminService {
         newRoleId,
       })
       .pipe(
-        map(() => true),
+        map(() => { this.update(); return true; }),
         catchError(this.handleError),
       );
   }
   addNewJob(jobDto: JobDTO): Observable<boolean> {
     return this.http.post(`${this.#baseUrl}/add-new-job`, jobDto).pipe(
-      map(() => true),
+      map(() => { this.update(); return true; }),
       catchError((err) => this.handleError(err)),
     );
   }
 
   deleteUserById(userId: number): Observable<boolean> {
     return this.http.delete(`${this.#baseUrl}/delete-user/${userId}`).pipe(
-      map(() => true),
+      map(() => { this.update(); return true; }),
       catchError((err) => this.handleError(err)),
     );
   }
 
   deleteJobById(jobId: number): Observable<boolean> {
+    this.update();
     return this.http.delete(`${this.#baseUrl}/delete-job/${jobId}`).pipe(
-      map(() => true),
+      map(() => { this.update(); return true; }),
       catchError((err) => this.handleError(err)),
     );
   }
 
   deleteScheduleById(id: number): Observable<boolean> {
+    this.update();
     return this.http.delete(`${this.#baseUrl}/delete-schedule/${id}`).pipe(
-      map(() => true),
+      map(() => { this.update(); return true; }),
       catchError((err) => this.handleError(err)),
     );
   }

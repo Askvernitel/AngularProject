@@ -49,6 +49,8 @@ import { MatIcon } from '@angular/material/icon';
 import { LoadingSpinnerComponent } from './components/loading-spinner/loading-spinner.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatProgressBar, MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { SuccessSnackBarComponent } from './components/snack-bars/success-snack-bar/success-snack-bar.component';
 
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
   return new TranslateHttpLoader(http, '@/assets/i18n/', '.json');
@@ -74,10 +76,12 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     DeleteScheduleDialogComponent,
     ApproveScheduleDialogComponent,
     LoadingSpinnerComponent,
+    SuccessSnackBarComponent,
   ],
   bootstrap: [AppComponent],
   imports: [
     BrowserModule,
+    MatSnackBarModule,
     MatSelectModule,
     MatProgressBarModule,
     MatProgressSpinnerModule,

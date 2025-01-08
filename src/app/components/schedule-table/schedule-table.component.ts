@@ -29,8 +29,14 @@ export class ScheduleTableComponent implements OnInit {
 
 
   ngOnInit(): void {
+    this.adminService.changes.subscribe((_) => {
+      this.initTable();
+    });
   }
-  constructor(private userService: UserService) {
+  constructor(private userService: UserService, private adminService: AdminService) {
+    this.initTable();
+  }
+  private initTable() {
     let currentDate = new Date();
     this.columnsInit(currentDate);
     this.weekDataInit();
@@ -114,7 +120,7 @@ export class ScheduleTableComponent implements OnInit {
   protected isMorningShift(stringDate: string): boolean {
     let date = new Date(stringDate);
     let morningShiftLowerBound = 8;//8am
-    let morningShiftUpperBound = 16; //4pm
+    let morningShiftUpperBound = 16;//4pm
     return date.getHours() >= morningShiftLowerBound && date.getHours() <= morningShiftUpperBound;
   }
 }
