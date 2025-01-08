@@ -28,8 +28,9 @@
         </td>
 
         <td class="edit-buttons">
-          <button mat-raised-button (click)="handleChangeRole(user.id)">Change Role</button>
-          <button mat-raised-button (click)="handleDeleteUser(user)">Delete User</button>
+          <button mat-raised-button (click)="handleChangeRole(user.id, user.roleId)" class="change-role">Change
+            Role</button>
+          <button mat-raised-button (click)="handleDeleteUser(user)" class="delete-user">Delete </button>
         </td>
       </tr>
     </tbody>

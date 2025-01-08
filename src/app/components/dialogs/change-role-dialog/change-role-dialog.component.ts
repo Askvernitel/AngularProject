@@ -12,6 +12,7 @@ import { AbstractDialog } from '../abstract-dialog';
 })
 export class ChangeRoleDialogComponent extends AbstractDialog {
   readonly data = inject<ChangeRoleDialog>(MAT_DIALOG_DATA);
+  readonly currenRoleId = this.data.roleId;
 
 
 

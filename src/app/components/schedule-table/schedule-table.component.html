@@ -22,15 +22,15 @@
           <div class="mat-cell">
             <ng-container class="morning-shifts" *ngFor="let worker of row[day]">
               <div class="morning-shift" *ngIf="isMorningShift(worker.startTime) && worker.isApproved">
-                <span>Morning Shift </span>
-                <span>Worker: {{worker.firstName}} {{worker.lastName}}</span>
+                <span>Morning Shift: </span>
+                <span>{{worker.firstName}} {{worker.lastName}}</span>
               </div>
             </ng-container>
 
             <ng-container class="evening-shifts" *ngFor="let worker of row[day]">
               <div class="evening-shift" *ngIf="!isMorningShift(worker.startTime) && worker.isApproved">
-                <span>Evening Shift </span>
-                <span>Worker: {{worker.firstName}} {{worker.lastName}}</span>
+                <span>Evening Shift: </span>
+                <span>{{worker.firstName}} {{worker.lastName}}</span>
               </div>
             </ng-container>
           </div>

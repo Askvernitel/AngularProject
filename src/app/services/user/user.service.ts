@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { catchError, Observable, of, throwError } from 'rxjs';
+import { catchError, Observable, of, Subject, throwError } from 'rxjs';
 import {
   GetJobDTO,
   GetUsersDTO,
@@ -18,12 +18,10 @@ import { environment } from '@env/environment';
 })
 export class UserService implements IUserService {
   #baseUrl = new URL('User', environment.apiUrl);
-
   constructor(
     private http: HttpClient,
     private router: Router,
   ) { }
-
   private handleError(error: HttpErrorResponse) {
     console.error(error);
 

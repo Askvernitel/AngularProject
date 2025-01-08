@@ -11,13 +11,11 @@
         <td>
           {{schedule.id}}
         </td>
-        <td>
-
-          {{schedule.startTime | date:'medium'}}
+        <td [ngClass]="isMorningShift(schedule.startTime)?'morning':'evening'">
+          <span>{{isMorningShift(schedule.startTime)?"Morning":"Evening"}}</span>
         </td>
         <td>
-
-          {{schedule.endTime | date:'medium'}}
+          {{schedule.startTime | date:"mediumDate"}}
         </td>
         <td>
           {{schedule.userId }}
@@ -35,14 +33,16 @@
         <td>
           {{schedule.jobTitle}}
         </td>
-        <td>
-          {{schedule.isApproved ? "Approved":"Not Approved"}}
+        <td [ngClass]="schedule.isApproved?'approved':'not-approved'">
+          <span>
+            {{schedule.isApproved ? "Approved":"Not Approved"}}
+          </span>
         </td>
         <td class="edit-buttons">
 
-          <button mat-raised-button (click)="handleDeleteSchedule(schedule)">Delete</button>
-          <button mat-raised-button *ngIf="!schedule.isApproved"
-            (click)="handleApproveSchedule(schedule)">Approve</button>
+          <button mat-raised-button (click)="handleDeleteSchedule(schedule)" class="delete-button">Delete</button>
+          <button mat-raised-button *ngIf="!schedule.isApproved" (click)="handleApproveSchedule(schedule)"
+            class="approve-button">Approve</button>
         </td>
       </tr>
     </tbody>

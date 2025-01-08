@@ -14,7 +14,8 @@ import { EventEmitter } from 'stream';
 
 
 export type ChangeRoleDialog = {
-  roleId: number
+  roleId: number,
+  userId: number
 }
 
 export type DeleteUserDialog = {
@@ -44,8 +45,8 @@ export class EditUserComponent implements OnInit {
   constructor(private userService: UserService, private dialog: MatDialog, private adminService: AdminService) {
   }
 
-  protected handleChangeRole(id: number) {
-    const dialogRef = this.dialog.open(ChangeRoleDialogComponent, { data: { roleId: id } });
+  protected handleChangeRole(id: number, roleId: number) {
+    const dialogRef = this.dialog.open(ChangeRoleDialogComponent, { data: { roleId: roleId } });
 
     dialogRef.afterClosed().subscribe((roleId: string) => {
       const roleIdNum: number = Number(roleId);
