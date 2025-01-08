@@ -1,0 +1,53 @@
+.edit-job-div {
+  padding: 20px;
+  background-color: #f8f9fa;
+  border-radius: 12px;
+  border: 1px solid #d6d6d6;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+}
+
+.edit-job-div button.delete-button {
+  background-color: rgb(255, 49, 49) !important;
+  color: #ffffff;
+}
+
+.edit-job-div button.add-button {
+  color: rgb(255, 255, 255);
+  background-color: rgb(54, 69, 79) !important;
+  margin-bottom: 5px;
+}
+
+
+
+table.t {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #ffffff;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+thead.t-h th {
+  background-color: rgb(54, 69, 79) !important;
+  color: #ffffff;
+  padding: 12px 16px;
+  text-align: left;
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+tbody.t-b tr {
+  border-bottom: 1px solid #e0e0e0;
+}
+
+tbody.t-b tr:nth-child(even) {
+  background-color: #f8f9fa;
+}
+
+td {
+  padding: 12px 16px;
+  font-size: 14px;
+  color: #333;
+}

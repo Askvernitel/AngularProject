@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { RouterPaths } from '@app/enums/router-paths';
 import { SessionService } from '@app/services/session/session.service';
 import { RoleType } from '@app/enums/role-type';
+import { HttpErrorResponse, HttpStatusCode } from '@angular/common/http';
 
 @Component({
   selector: 'app-login',
@@ -14,7 +15,9 @@ import { RoleType } from '@app/enums/role-type';
 })
 export class LoginComponent implements OnInit {
   protected loginUserForm!: FormGroup;
-
+  protected loginError!: string;
+  protected passwordError!: string;
+  protected emailError!: string;
   constructor(
     private formBuilder: FormBuilder,
     private userService: UserService,
@@ -24,10 +27,40 @@ export class LoginComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+
     //this.userService.logout();
     this.formInit();
+    this.loginUserForm.statusChanges.subscribe((_) => {
+      this.resetLoginError();
+    });
   }
-
+  protected get email() {
+    return this.loginUserForm.get('email');
+  }
+  protected get password() {
+    return this.loginUserForm.get('password');
+  }
+  private resetLoginError() {
+    this.loginError = "";
+  }
+  protected handleLoginError(this: LoginComponent, error?: Error) {
+    this.resetLoginError();
+    if (this.email?.invalid && this.email?.hasError("required")) {
+      this.emailError = "Email Is Required";
+    } else if (this.email?.invalid && this.email?.hasError("email")) {
+      this.emailError = "Email Is Invalid";
+    } else if (this.password?.invalid && this.password?.hasError("required")) {
+      this.passwordError = "Password Is Required";
+    } else if (error?.message == "0") {
+      this.loginError = "Connection Error, Try Again";
+    } else if (error?.message == String(HttpStatusCode.NotFound)) {
+      this.loginError = "No User Found With Such Email And Password";
+    } else if (error?.message == String(HttpStatusCode.InternalServerError)) {
+      this.loginError = "Incorrect Password";
+    } else if (error) {
+      this.loginError = "Something Went Wrong!";
+    }
+  }
   private formInit(): void {
     this.loginUserForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
@@ -37,6 +70,7 @@ export class LoginComponent implements OnInit {
 
   protected handleSubmit(): void {
     if (!this.loginUserForm.valid) {
+      this.handleLoginError();
       return;
     }
     const user: LoginDTO = this.loginUserForm.value;
@@ -51,7 +85,9 @@ export class LoginComponent implements OnInit {
           this.router.navigateByUrl(RouterPaths.WORKER);
         }
       },
-      error: () => { },
+      error: (error: Error) => {
+        this.handleLoginError(error);
+      },
     });
   }
 }

@@ -1,44 +1,63 @@
 <div class="register-card">
   <h1>Register</h1>
   <mat-card class="outlined">
+    <mat-card-header>
+    </mat-card-header>
     <mat-card-content>
       <form [formGroup]="registerUserForm" (ngSubmit)="handleSubmit()" class="register-form">
         <mat-form-field>
           <mat-label>First Name</mat-label>
-          <input matInput placeholder="First Name" formControlName="firstName" type="text">
+          <input matInput placeholder="First Name" formControlName="firstName" type="text"
+            (blur)="handleRegisterError()">
+          <mat-error *ngIf="registerError.firstNameError">{{registerError.firstNameError}}</mat-error>
         </mat-form-field>
 
         <mat-form-field>
           <mat-label>Last Name</mat-label>
-          <input matInput placeholder="Last Name" formControlName="lastName" type="text">
+          <input matInput placeholder="Last Name" formControlName="lastName" type="text" (blur)="handleRegisterError()">
+          <mat-error *ngIf="registerError.lastNameError">{{registerError.lastNameError}}</mat-error>
         </mat-form-field>
 
         <mat-form-field>
           <mat-label>Email</mat-label>
-          <input matInput placeholder="Email" formControlName="email" type="email">
+          <input matInput placeholder="Email" formControlName="email" type="email" (blur)="handleRegisterError()">
+          <mat-error *ngIf="registerError.emailError">{{registerError.emailError}}</mat-error>
         </mat-form-field>
 
         <mat-form-field>
           <mat-label>Password</mat-label>
-          <input matInput placeholder="******" formControlName="password" type="password">
+          <input matInput placeholder="******" formControlName="password" [type]="hiddenPassword ? 'password': 'text'"
+            (blur)="handleRegisterError()">
+
+          <button mat-icon-button matSuffix (click)="changePasswordState('password')">
+            <mat-icon>{{hiddenPassword ? 'visibility_off' : 'visibility_on'}}</mat-icon>
+          </button>
+          <mat-error *ngIf="registerError.passwordError">{{registerError.passwordError}}</mat-error>
         </mat-form-field>
         <mat-form-field>
           <mat-label>Confirm Password</mat-label>
-          <input matInput placeholder="******" formControlName="confirmPassword" type="password">
+          <input matInput placeholder="******" formControlName="confirmPassword"
+            [type]="hiddenConfirmPassword ? 'password':'text'" (blur)="handleRegisterError()">
+          <button mat-icon-button matSuffix (click)="changePasswordState('confirmPassword')">
+            <mat-icon>{{hiddenConfirmPassword ? 'visibility_off' : 'visibility_on'}}</mat-icon>
+          </button>
+          <mat-error *ngIf="registerError.passwordError">{{registerError.passwordError}}</mat-error>
+
         </mat-form-field>
 
         <mat-form-field>
           <mat-label>Jobs</mat-label>
-          <mat-select formControlName="jobId">
+          <mat-select formControlName="jobId" (opened)="handleRegisterError()">
             <!--            <mat-option>None</mat-option>-->
 
             <mat-option *ngFor="let job of (jobs$| async)" [value]="job.id">{{job.title}}</mat-option>
           </mat-select>
+          <mat-error *ngIf="registerError.jobIdError">{{registerError.jobIdError}}</mat-error>
         </mat-form-field>
 
-
+        <mat-error>{{registerError.registerError}}</mat-error>
         <div class="register-buttons">
-          <button mat-raised-button style="" type="submit" [disabled]="registerUserForm.invalid">Register</button>
+          <button mat-raised-button style="" type="submit">Register</button>
           <button mat-button routerLink="/login">Already Registered?</button>
         </div>
 

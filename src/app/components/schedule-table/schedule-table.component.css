@@ -1,4 +1,4 @@
-table {
+/*table {
   width: 1200px;
 }
 
@@ -19,4 +19,89 @@ td {
   display: flex;
   flex-direction: column;
   align-items: center;
+}*/
+.flex-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.button-container {
+  display: flex;
+  column-gap: 10px;
+}
+
+/*
+.button-container button {
+  background-color: #3f51b5;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+
+.button-container button:hover {
+  background-color: #303f9f;
+}*/
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+thead {
+  background-color: rgb(54, 69, 79) !important;
+  color: white;
+}
+
+
+th,
+td {
+  padding: 12px 16px;
+  text-align: left;
+  border: 1px solid #e0e0e0;
+}
+
+th {
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+tbody tr:hover {
+  background-color: #f1f1f1;
+}
+
+.job-td {
+  font-weight: bold;
+  background-color: #f5f5f5;
+}
+
+.morning-shifts,
+.evening-shifts {
+  margin: 6px 0;
+  padding: 8px;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+.morning-shift {
+  background-color: #c8e6c9;
+  color: #388e3c;
+}
+
+.evening-shift {
+  background-color: #ffe0b2;
+  color: #e65100;
 }

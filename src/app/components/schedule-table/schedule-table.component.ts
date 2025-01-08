@@ -23,6 +23,7 @@ type ScheduleTableData = {
 export class ScheduleTableComponent implements OnInit {
   data!: ScheduleDTO[];
   currentWeekData: any[] = [];
+  dataIsLoaded: boolean = false;
   columns: string[] = ["Jobs", "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
   dayAndMonthColumns: Date[] = []; // always has length of 7
 
@@ -33,6 +34,7 @@ export class ScheduleTableComponent implements OnInit {
     let currentDate = new Date();
     this.columnsInit(currentDate);
     this.weekDataInit();
+    this.loadData();
   }
   private getNextDay(date: Date) {
     let dayInSeconds = (1000 * 60 * 60 * 24);
@@ -88,17 +90,26 @@ export class ScheduleTableComponent implements OnInit {
           this.currentWeekData.push(row);
         });
 
-        console.log(this.currentWeekData);
+        //console.log(this.currentWeekData);
       });
     });
   }
+
+  private loadData() {
+    this.dataIsLoaded = false
+    setTimeout(() => {
+      this.dataIsLoaded = true;
+    }, 300)
+  }
   protected switchToNextWeek() {
+    this.loadData();
     this.columnsInit(this.getNextDay(this.dayAndMonthColumns[6]));
     this.weekDataInit();
   }
   protected switchToPreviousWeek() {
+    this.loadData();
     this.columnsInit(this.getPrevDay(this.dayAndMonthColumns[0]));
-    this.weekDataInit()
+    this.weekDataInit();
   }
   protected isMorningShift(stringDate: string): boolean {
     let date = new Date(stringDate);
