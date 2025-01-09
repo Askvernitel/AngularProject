@@ -1,17 +1,6 @@
 import { Injectable } from '@angular/core';
-import {
-  HttpClient,
-  HttpErrorResponse,
-  HttpParams,
-} from '@angular/common/http';
-import {
-  BehaviorSubject,
-  catchError,
-  map,
-  Observable,
-  of,
-  throwError,
-} from 'rxjs';
+import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
+import { BehaviorSubject, catchError, map, Observable, of, Subject, throwError } from 'rxjs';
 import { JobDTO } from '@app/dto';
 import { IAdminService } from '@app/interfaces';
 import { environment } from '@env/environment';
@@ -28,12 +17,16 @@ export class AdminService implements IAdminService {
    * @private
    */
   readonly #baseUrl = new URL('Admin', environment.apiUrl);
+  changes: Subject<boolean> = new Subject();
+  private update() {
+    this.changes.next(true);
+  }
 
   /**
    * Constructor
    * @param http HttpClient
    */
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   /**
    * Method to handle errors
@@ -56,7 +49,7 @@ export class AdminService implements IAdminService {
         {},
       )
       .pipe(
-        map(() => true),
+        map(() => { this.update(); return true; }),
         catchError(this.handleError),
       );
   }
@@ -71,7 +64,7 @@ export class AdminService implements IAdminService {
         newRoleId,
       })
       .pipe(
-        map(() => true),
+        map(() => { this.update(); return true; }),
         catchError(this.handleError),
       );
   }
@@ -81,7 +74,7 @@ export class AdminService implements IAdminService {
    */
   addNewJob(jobDto: JobDTO): Observable<boolean> {
     return this.http.post(`${this.#baseUrl}/add-new-job`, jobDto).pipe(
-      map(() => true),
+      map(() => { this.update(); return true; }),
       catchError((err) => this.handleError(err)),
     );
   }
@@ -91,7 +84,7 @@ export class AdminService implements IAdminService {
    */
   deleteUserById(userId: number): Observable<boolean> {
     return this.http.delete(`${this.#baseUrl}/delete-user/${userId}`).pipe(
-      map(() => true),
+      map(() => { this.update(); return true; }),
       catchError((err) => this.handleError(err)),
     );
   }
@@ -100,8 +93,9 @@ export class AdminService implements IAdminService {
    * @inheritDoc
    */
   deleteJobById(jobId: number): Observable<boolean> {
+    this.update();
     return this.http.delete(`${this.#baseUrl}/delete-job/${jobId}`).pipe(
-      map(() => true),
+      map(() => { this.update(); return true; }),
       catchError((err) => this.handleError(err)),
     );
   }
@@ -110,8 +104,9 @@ export class AdminService implements IAdminService {
    * @inheritDoc
    */
   deleteScheduleById(id: number): Observable<boolean> {
+    this.update();
     return this.http.delete(`${this.#baseUrl}/delete-schedule/${id}`).pipe(
-      map(() => true),
+      map(() => { this.update(); return true; }),
       catchError((err) => this.handleError(err)),
     );
   }

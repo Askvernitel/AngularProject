@@ -49,6 +49,8 @@ import { MatIcon } from '@angular/material/icon';
 import { LoadingSpinnerComponent } from '@components/loading-spinner/loading-spinner.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { SuccessSnackBarComponent } from './components/snack-bars/success-snack-bar/success-snack-bar.component';
 
 /**
  * Function to load translations from the assets folder
@@ -79,10 +81,12 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     DeleteScheduleDialogComponent,
     ApproveScheduleDialogComponent,
     LoadingSpinnerComponent,
+    SuccessSnackBarComponent,
   ],
   bootstrap: [AppComponent],
   imports: [
     BrowserModule,
+    MatSnackBarModule,
     MatSelectModule,
     MatProgressBarModule,
     MatProgressSpinnerModule,
@@ -121,4 +125,4 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     StorageService,
   ],
 })
-export class AppModule {}
+export class AppModule { }

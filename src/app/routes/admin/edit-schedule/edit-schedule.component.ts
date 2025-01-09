@@ -18,7 +18,7 @@ export type ScheduleDialog = {
 })
 export class EditScheduleComponent implements OnInit {
   schedules$!: Observable<ScheduleDTO[]>
-  columns: string[] = ["Id", "Start Time", "End Time", "User Id", "First Name", "Last Name", "Job Id", "Job Title", "Status", "operations"];
+  columns: string[] = ["Id", "Shift", "Date", "User Id", "First Name", "Last Name", "Job Id", "Job Title", "Status", "operations"];
 
   constructor(private userService: UserService, private adminService: AdminService, private dialog: MatDialog) {
 
@@ -26,7 +26,13 @@ export class EditScheduleComponent implements OnInit {
   ngOnInit(): void {
     this.update();
   }
+  isMorningShift(shiftDate: Date) {
 
+    let date: Date = new Date(shiftDate);
+    console.log(date.getHours())
+    if (date.getHours() <= 16 - 4 && date.getHours() >= 8 - 4) return true;
+    return false
+  }
   update() {
 
     this.schedules$ = this.userService.getDashboard();
@@ -38,7 +44,6 @@ export class EditScheduleComponent implements OnInit {
     dialogRef.afterClosed().subscribe((schedule: ScheduleDTO) => {
       if (schedule !== undefined) {
         this.adminService.approveScheduleRequest(schedule.id).subscribe((approved) => {
-          console.log(approved);
           if (approved) this.update();
         });
       }

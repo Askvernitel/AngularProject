@@ -25,10 +25,6 @@ const routes: Routes = [
     redirectTo: 'login',
   },
   {
-    path: '**',
-    redirectTo: 'login',
-  },
-  {
     path: 'login',
     component: LoginComponent,
     canActivate: [loginAndRegisterGuard],
@@ -61,11 +57,15 @@ const routes: Routes = [
         component: EditScheduleComponent,
       },
     ],
+  }, {
+    path: '**',
+    redirectTo: 'login',
   },
+
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

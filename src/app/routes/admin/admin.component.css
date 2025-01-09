@@ -9,3 +9,9 @@
   display: flex;
   column-gap: 10px;
 }
+
+.active {
+
+  background-color: rgb(54, 69, 79);
+  color: white;
+}

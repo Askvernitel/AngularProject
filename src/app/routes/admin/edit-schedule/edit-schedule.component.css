@@ -8,7 +8,7 @@
 .t {
   width: 100%;
   border-collapse: collapse;
-  background-color: #ffffff;
+  background-color: white;
   font-family: 'Arial', sans-serif;
   font-size: 14px;
 }
@@ -43,4 +43,34 @@
 
 .t-b .t-r td:nth-child(9) {
   font-weight: bold;
+}
+
+td.approved span {
+  color: #228B22;
+}
+
+td.not-approved span {
+
+  color: #ff5733
+}
+
+.delete-button {
+
+  background-color: rgb(255, 49, 49) !important;
+  color: white;
+}
+
+.approve-button {
+  background-color: #228B22 !important;
+  color: white;
+}
+
+.morning {
+  font-weight: bold;
+  color: #7393B3 !important;
+}
+
+.evening {
+  font-weight: bold;
+  color: #088F8F !important;
 }

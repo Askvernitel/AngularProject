@@ -35,7 +35,7 @@ export class UserService implements IUserService {
   constructor(
     private http: HttpClient,
     private router: Router,
-  ) {}
+  ) { }
 
   /**
    * Handles the error response from the API

@@ -39,3 +39,18 @@ td {
   font-size: 14px;
   color: #333;
 }
+
+.edit-buttons {
+  display: flex;
+  column-gap: 5px;
+}
+
+.change-role {
+  background-color: rgb(54, 69, 79);
+  color: white;
+}
+
+.delete-user {
+  background-color: rgb(255, 49, 49) !important;
+  color: white;
+}
