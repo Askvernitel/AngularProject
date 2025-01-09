@@ -5,5 +5,4 @@ export type RegisterError = {
   passwordError?: string;
   jobIdError?: string;
   registerError?: string;
-
-}
+};

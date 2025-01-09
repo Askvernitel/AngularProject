@@ -27,8 +27,10 @@ export class EditScheduleComponent implements OnInit {
     this.update();
   }
   isMorningShift(shiftDate: Date) {
+
     let date: Date = new Date(shiftDate);
-    if (date.getHours() <= 16 && date.getHours() >= 8) return true;
+    console.log(date.getHours())
+    if (date.getHours() <= 16 - 4 && date.getHours() >= 8 - 4) return true;
     return false
   }
   update() {

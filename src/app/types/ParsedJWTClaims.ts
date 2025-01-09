@@ -1,5 +1,9 @@
 import { JWTClaims } from '@app/types/JWTClaims';
 
+/**
+ * Represents what we actually get from server (in our case).
+ * We are only interested in these fields.
+ */
 export type ParsedJWTClaims = Required<
   Pick<
     JWTClaims,

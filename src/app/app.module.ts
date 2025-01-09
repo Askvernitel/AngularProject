@@ -36,22 +36,27 @@ import { StorageService } from '@app/services';
 import { JobIdToTitlePipe } from './pipes/job-id-to-title.pipe';
 import { RoleIdToTitlePipe } from './pipes/role-id-to-title.pipe';
 import { MatDialogModule } from '@angular/material/dialog';
-import { EditUserComponent } from './routes/admin/edit-user/edit-user.component';
+import { EditUserComponent } from '@routes/admin/edit-user/edit-user.component';
 import { ChangeRoleDialogComponent } from '@dialogs/change-role-dialog/change-role-dialog.component';
 import { DeleteUserDialogComponent } from '@dialogs/delete-user-dialog/delete-user-dialog.component';
-import { EditJobComponent } from './routes/admin/edit-job/edit-job.component';
-import { AddJobDialogComponent } from './components/dialogs/add-job-dialog/add-job-dialog.component';
-import { DeleteJobDialogComponent } from './components/dialogs/delete-job-dialog/delete-job-dialog.component';
-import { EditScheduleComponent } from './routes/admin/edit-schedule/edit-schedule.component';
-import { DeleteScheduleDialogComponent } from './components/dialogs/delete-schedule-dialog/delete-schedule-dialog.component';
-import { ApproveScheduleDialogComponent } from './components/dialogs/approve-schedule-dialog/approve-schedule-dialog.component';
+import { EditJobComponent } from '@routes/admin/edit-job/edit-job.component';
+import { AddJobDialogComponent } from '@dialogs/add-job-dialog/add-job-dialog.component';
+import { DeleteJobDialogComponent } from '@dialogs/delete-job-dialog/delete-job-dialog.component';
+import { EditScheduleComponent } from '@routes/admin/edit-schedule/edit-schedule.component';
+import { DeleteScheduleDialogComponent } from '@dialogs/delete-schedule-dialog/delete-schedule-dialog.component';
+import { ApproveScheduleDialogComponent } from '@dialogs/approve-schedule-dialog/approve-schedule-dialog.component';
 import { MatIcon } from '@angular/material/icon';
-import { LoadingSpinnerComponent } from './components/loading-spinner/loading-spinner.component';
+import { LoadingSpinnerComponent } from '@components/loading-spinner/loading-spinner.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { MatProgressBar, MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { SuccessSnackBarComponent } from './components/snack-bars/success-snack-bar/success-snack-bar.component';
 
+/**
+ * Function to load translations from the assets folder
+ * @param http {HttpClient} - Angular HTTP client
+ * @return TranslateHttpLoader - Angular translation loader
+ */
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
   return new TranslateHttpLoader(http, '@/assets/i18n/', '.json');
 }
