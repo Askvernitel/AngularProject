@@ -10,7 +10,7 @@
         <th class="mat-header-cell">{{ columns[0] }}</th>
         <th *ngFor="let day of columns.slice(1)" class="mat-header-cell">
           {{ day }}
-          {{ dayAndMonthColumns[columns.indexOf(day) - 1].getMonth() | numDateConv: 'month' | titlecase}}
+          {{ dayAndMonthColumns[columns.indexOf(day) - 1].getMonth() | toMonth | titlecase}}
           {{ dayAndMonthColumns[columns.indexOf(day) - 1].getDate() }}
         </th>
       </tr>

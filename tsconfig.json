@@ -34,8 +34,17 @@
       "@core/*": [
         "src/app/core/*"
       ],
+      "@dialogs/*": [
+        "src/app/components/dialogs/*"
+      ],
+      "@enums/*": [
+        "src/app/enums/*"
+      ],
       "@env/*": [
         "src/environments/*"
+      ],
+      "@guards/*": [
+        "src/app/guards/*"
       ],
       "@models/*": [
         "src/app/models/*"
@@ -54,9 +63,6 @@
       ],
       "@utils/*": [
         "src/app/utils/*"
-      ],
-      "@dialogs/*":[
-        "src/app/components/dialogs/*"
       ]
     }
   },

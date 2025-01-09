@@ -28,13 +28,16 @@ import { MatSelectModule } from '@angular/material/select';
 import { AsyncPipe, DatePipe, JsonPipe } from '@angular/common';
 import { MatTableModule } from '@angular/material/table';
 import { ScheduleTableComponent } from '@components/schedule-table/schedule-table.component';
-import { NumericDateConverterPipe } from './pipes/numeric-date-converter.pipe';
+import {
+  ToWeekdayPipe,
+  ToMonthPipe,
+  JobToTitlePipe,
+  RoleToTitlePipe,
+} from '@app/pipes';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { provideNativeDateAdapter } from '@angular/material/core';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { StorageService } from '@app/services';
-import { JobIdToTitlePipe } from './pipes/job-id-to-title.pipe';
-import { RoleIdToTitlePipe } from './pipes/role-id-to-title.pipe';
 import { MatDialogModule } from '@angular/material/dialog';
 import { EditUserComponent } from '@routes/admin/edit-user/edit-user.component';
 import { ChangeRoleDialogComponent } from '@dialogs/change-role-dialog/change-role-dialog.component';
@@ -50,7 +53,7 @@ import { LoadingSpinnerComponent } from '@components/loading-spinner/loading-spi
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { SuccessSnackBarComponent } from './components/snack-bars/success-snack-bar/success-snack-bar.component';
+import { SuccessSnackBarComponent } from '@components/snack-bars/success-snack-bar/success-snack-bar.component';
 
 /**
  * Function to load translations from the assets folder
@@ -92,7 +95,7 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     MatProgressSpinnerModule,
     AsyncPipe,
     DatePipe,
-    RoleIdToTitlePipe,
+    RoleToTitlePipe,
     MatDialogModule,
     MatFormFieldModule,
     MatToolbarModule,
@@ -102,13 +105,14 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     MatButtonModule,
     ReactiveFormsModule,
     MatTableModule,
-    JobIdToTitlePipe,
+    JobToTitlePipe,
     MatSelectModule,
     MatDatepickerModule,
     FormsModule,
     JsonPipe,
     MatButtonToggleModule,
-    NumericDateConverterPipe,
+    ToMonthPipe,
+    ToWeekdayPipe,
     MatIcon,
     TranslateModule.forRoot({
       loader: {
@@ -125,4 +129,4 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     StorageService,
   ],
 })
-export class AppModule { }
+export class AppModule {}
