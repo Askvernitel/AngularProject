@@ -6,11 +6,12 @@ import {
 } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { SuccessSnackBarComponent } from '@app/components/snack-bars/success-snack-bar/success-snack-bar.component';
 import { AddScheduleDTO, ScheduleDTO } from '@app/dto';
 import { WorkerService } from '@app/services';
 import { SessionService } from '@app/services/session/session.service';
 import { SnackBar } from '@app/types';
+import { SnackBarComponent } from '@app/components/snack-bars/snack-bar/snack-bar.component';
+import { SnackBarService } from '@app/services/snack-bar/snack-bar.service';
 
 const $shifts = [
   { value: 'morning', label: 'Morning' },
@@ -34,9 +35,8 @@ export class WorkerComponent {
    * Constructor
    * @param workerService Worker service
    * @param sessionService Session service
-   * @param snackBar MatSnackBar
    */
-  constructor(private workerService: WorkerService, private sessionService: SessionService, private snackBar: MatSnackBar) {
+  constructor(private workerService: WorkerService, private sessionService: SessionService, private snackBar: SnackBarService) {
     this.workerScheduleForm = new FormGroup<{
       date: FormControl<Date | null>;
       shift: FormControl<shiftType | null>;
@@ -87,20 +87,7 @@ export class WorkerComponent {
     this.setShiftHoursDate(endTime, shift, 'endTime');
     return new AddScheduleDTO(startTime, endTime, this.sessionService.id);
   }
-  private openSuccessSnackBar(snackBarData: SnackBar) {
-    this.snackBar.openFromComponent(SuccessSnackBarComponent, {
-      duration: 3000,
-      data: snackBarData,
-      panelClass: ["success-snackbar"],
-    })
-  }
-  private openErrorSnackBar(snackBarData: SnackBar) {
-    this.snackBar.openFromComponent(SuccessSnackBarComponent, {
-      duration: 3000,
-      data: snackBarData,
-      panelClass: ["error-snackbar"],
-    })
-  }
+
   private resetForm() {
     this.workerScheduleForm.get('shift')?.reset();
   }
@@ -116,11 +103,11 @@ export class WorkerComponent {
     this.workerService.addScheduleRequest(scheduleRequest).subscribe({
       next: (requested) => {
         if (requested) {
-          this.openSuccessSnackBar({ acceptText: "Ok", text: "Schedule Sent. Await For Approve" });
+          this.snackBar.openSuccessSnackBar({ acceptText: "Ok", text: "Schedule Sent. Await For Approve", duration: 3000 });
         }
       },
       error: (error) => {
-        this.openErrorSnackBar({ acceptText: "Ok", text: "Could Not Create Request" });
+        this.snackBar.openErrorSnackBar({ acceptText: "Ok", text: "Could Not Create Request", duration: 3000 });
 
       }
     });

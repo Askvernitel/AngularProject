@@ -1,1 +1,12 @@
+::ng-deep .success-snackbar {
+  --mdc-snackbar-container-color: green !important;
+}
 
+::ng-deep .error-snackbar {
+  --mdc-snackbar-container-color: red !important;
+}
+
+
+::ng-deep .info-snackbar {
+  --mdc-snackbar-container-color: cyan !important;
+}

@@ -53,8 +53,7 @@ import { LoadingSpinnerComponent } from '@components/loading-spinner/loading-spi
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { SuccessSnackBarComponent } from '@components/snack-bars/success-snack-bar/success-snack-bar.component';
-
+import { SnackBarComponent } from './components/snack-bars/snack-bar/snack-bar.component';
 /**
  * Function to load translations from the assets folder
  * @param http {HttpClient} - Angular HTTP client
@@ -84,7 +83,7 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     DeleteScheduleDialogComponent,
     ApproveScheduleDialogComponent,
     LoadingSpinnerComponent,
-    SuccessSnackBarComponent,
+    SnackBarComponent,
   ],
   bootstrap: [AppComponent],
   imports: [
@@ -129,4 +128,4 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     StorageService,
   ],
 })
-export class AppModule {}
+export class AppModule { }
