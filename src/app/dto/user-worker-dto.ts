@@ -6,5 +6,5 @@ export class UserWorkerDTO {
     public email: string,
     public password: string,
     public jobId: number | null,
-  ) {}
+  ) { }
 }

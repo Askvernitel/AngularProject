@@ -54,6 +54,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { SnackBarComponent } from './components/snack-bars/snack-bar/snack-bar.component';
+import { UserSearchBarComponent } from './components/search-bar/user-search-bar/user-search-bar.component';
 /**
  * Function to load translations from the assets folder
  * @param http {HttpClient} - Angular HTTP client
@@ -84,6 +85,7 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     ApproveScheduleDialogComponent,
     LoadingSpinnerComponent,
     SnackBarComponent,
+    UserSearchBarComponent,
   ],
   bootstrap: [AppComponent],
   imports: [
