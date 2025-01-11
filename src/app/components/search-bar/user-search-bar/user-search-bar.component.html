@@ -1,0 +1,12 @@
+<form [formGroup]="userSearchBarForm" (ngSubmit)="handleSubmit()">
+  <mat-form-field>
+    <mat-label>First Name</mat-label>
+    <input matInput formControlName="firstName" />
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Last Name</mat-label>
+    <input matInput formControlName="lastName" />
+  </mat-form-field>
+
+  <button mat-button type="submit">Search</button>
+</form>

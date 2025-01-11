@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { GetUsersDTO } from '@app/dto';
-import { AdminService, UserService } from '@app/services';
+import { AdminService, SearchBarService, UserService } from '@app/services';
 import { Observable } from 'rxjs';
 import { ChangeRoleDialogComponent } from '@dialogs/change-role-dialog/change-role-dialog.component';
 import { DeleteUserDialogComponent } from '@dialogs/delete-user-dialog/delete-user-dialog.component';
+import { UserFilter } from '@app/types';
 
 export type ChangeRoleDialog = {
   roleId: number;
@@ -37,7 +38,8 @@ export class EditUserComponent implements OnInit {
     private userService: UserService,
     private dialog: MatDialog,
     private adminService: AdminService,
-  ) {}
+    private searchBarService: SearchBarService
+  ) { }
 
   protected handleChangeRole(id: number, roleId: number) {
     const dialogRef = this.dialog.open(ChangeRoleDialogComponent, {
@@ -69,5 +71,10 @@ export class EditUserComponent implements OnInit {
           });
       }
     });
+  }
+
+  protected handleSearchBar(userFilter: UserFilter) {
+    this.searchBarService.setUserFilter(userFilter);
+    this.users$ = this.searchBarService.filterUsers(this.users$);
   }
 }

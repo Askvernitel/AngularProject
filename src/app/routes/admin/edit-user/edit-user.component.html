@@ -1,4 +1,5 @@
 <div class="edit-user-div">
+  <app-user-search-bar (userFilter)="handleSearchBar($event)"></app-user-search-bar>
   <table class="t">
     <thead class="t-h">
       <th *ngFor="let colName of columns">
