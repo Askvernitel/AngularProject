@@ -4,6 +4,7 @@ import { ApproveScheduleDialogComponent } from '@app/components/dialogs/approve-
 import { DeleteScheduleDialogComponent } from '@app/components/dialogs/delete-schedule-dialog/delete-schedule-dialog.component';
 import { ScheduleDTO } from '@app/dto';
 import { AdminService, UserService } from '@app/services';
+import { SnackBarService } from '@app/services/snack-bar/snack-bar.service';
 import { Observable } from 'rxjs';
 
 
@@ -20,7 +21,7 @@ export class EditScheduleComponent implements OnInit {
   schedules$!: Observable<ScheduleDTO[]>
   columns: string[] = ["Id", "Shift", "Date", "User Id", "First Name", "Last Name", "Job Id", "Job Title", "Status", "operations"];
 
-  constructor(private userService: UserService, private adminService: AdminService, private dialog: MatDialog) {
+  constructor(private userService: UserService, private adminService: AdminService, private dialog: MatDialog, private snackBarService: SnackBarService) {
 
   }
   ngOnInit(): void {
@@ -40,13 +41,19 @@ export class EditScheduleComponent implements OnInit {
 
   handleApproveSchedule(schedule: ScheduleDTO) {
     const dialogRef = this.dialog.open(ApproveScheduleDialogComponent, { data: { schedule: schedule } });
-
     dialogRef.afterClosed().subscribe((schedule: ScheduleDTO) => {
-      if (schedule !== undefined) {
-        this.adminService.approveScheduleRequest(schedule.id).subscribe((approved) => {
-          if (approved) this.update();
-        });
+      if (schedule === undefined) {
+        this.snackBarService.openInfoSnackBar({ text: "Schedule Was Not Approved Window Closed", acceptText: "😥", duration: 3000 });
+        return;
       }
+      this.adminService.approveScheduleRequest(schedule.id).subscribe((approved) => {
+        if (approved) {
+          this.snackBarService.openSuccessSnackBar({ text: "Schedule Was Approved", acceptText: "🎉", duration: 3000 });
+          this.update();
+          return
+        }
+        this.snackBarService.openErrorSnackBar({ text: "Schedule Was Not Approved", acceptText: "😥", duration: 3000 });
+      });
     });
   }
 
@@ -54,12 +61,18 @@ export class EditScheduleComponent implements OnInit {
     const dialogRef = this.dialog.open(DeleteScheduleDialogComponent, { data: { schedule: schedule } });
 
     dialogRef.afterClosed().subscribe((schedule: ScheduleDTO) => {
-
-      if (schedule !== undefined) {
-        this.adminService.deleteScheduleById(schedule.id).subscribe((deleted) => {
-          if (deleted) this.update();
-        });
+      if (schedule === undefined) {
+        this.snackBarService.openInfoSnackBar({ text: "Schedule Was Not Deleted Window Closed", acceptText: "😥", duration: 3000 })
+        return;
       }
+      this.adminService.deleteScheduleById(schedule.id).subscribe((deleted) => {
+        if (deleted) {
+          this.snackBarService.openSuccessSnackBar({ text: "Schedule Was Deleted", acceptText: "🎉", duration: 3000 });
+          this.update();
+          return
+        }
+        this.snackBarService.openErrorSnackBar({ text: "Schedule Was Not Deleted", acceptText: "😥", duration: 3000 })
+      });
     });
   }
 

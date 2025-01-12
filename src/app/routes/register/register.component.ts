@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { GetJobDTO, UserDTO } from '@app/dto';
 import { RouterPaths } from '@app/enums/router-paths';
 import { UserService } from '@app/services';
+import { SnackBarService } from '@app/services/snack-bar/snack-bar.service';
 import { RegisterError } from '@app/types/RegisterError';
 import { passwordMatchValidator } from '@app/validators/password-match.validator';
 import { Observable, of } from 'rxjs';
@@ -31,6 +32,7 @@ export class RegisterComponent implements OnInit {
   constructor(
     private userService: UserService,
     private router: Router,
+    private snackBarService: SnackBarService
   ) {
     this.registerUserForm = new FormGroup<{
       firstName: FormControl<string | null>;
@@ -198,6 +200,7 @@ export class RegisterComponent implements OnInit {
     //register
     this.userService.register(user).subscribe({
       next: () => {
+        this.snackBarService.openSuccessSnackBar({ text: "Registered Succesfully", acceptText: "Wow!", duration: 3000 });
         this.router
           .navigateByUrl(RouterPaths.LOGIN)
           .then((value) =>

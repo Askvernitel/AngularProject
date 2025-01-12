@@ -1,5 +1,5 @@
 ::ng-deep .success-snackbar {
-  --mdc-snackbar-container-color: green !important;
+  --mdc-snackbar-container-color: rgb(76, 187, 23) !important;
 }
 
 ::ng-deep .error-snackbar {
@@ -8,5 +8,5 @@
 
 
 ::ng-deep .info-snackbar {
-  --mdc-snackbar-container-color: cyan !important;
+  --mdc-snackbar-container-color: rgb(0, 150, 255) !important;
 }
