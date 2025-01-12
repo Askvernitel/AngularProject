@@ -15,15 +15,18 @@ export class UserSearchBarComponent implements OnInit {
     firstName: new FormControl(''),
     lastName: new FormControl(''),
   });
-  constructor(private search: SearchBarService) {
 
-  }
   ngOnInit(): void {
   }
 
 
-  handleSubmit() {
+  handleSubmit(): void {
     this.userFilter.emit(this.userSearchBarForm.value as UserFilter);
+  }
+
+  handleClear(): void {
+    this.userFilter.emit({ firstName: '', lastName: '' } as UserFilter);
+    this.userSearchBarForm.reset({ firstName: '', lastName: '' });
   }
 
 }

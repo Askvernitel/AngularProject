@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 import { ChangeRoleDialogComponent } from '@dialogs/change-role-dialog/change-role-dialog.component';
 import { DeleteUserDialogComponent } from '@dialogs/delete-user-dialog/delete-user-dialog.component';
 import { UserFilter } from '@app/types';
+import { SnackBarService } from '@app/services/snack-bar/snack-bar.service';
 
 export type ChangeRoleDialog = {
   roleId: number;
@@ -24,7 +25,6 @@ export type DeleteUserDialog = {
 export class EditUserComponent implements OnInit {
   columns = ['Id', 'First Name', 'Last Name', 'Job', 'Role', 'Operations'];
   users$!: Observable<GetUsersDTO[]>;
-
   ngOnInit(): void {
     this.update();
   }
@@ -37,6 +37,7 @@ export class EditUserComponent implements OnInit {
   constructor(
     private userService: UserService,
     private dialog: MatDialog,
+    private snackBarService: SnackBarService,
     private adminService: AdminService,
     private searchBarService: SearchBarService
   ) { }
@@ -47,14 +48,21 @@ export class EditUserComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe((roleId: string) => {
-      const roleIdNum: number = Number(roleId);
-      if (roleIdNum !== undefined) {
-        this.adminService
-          .changeUserRole(id, roleIdNum)
-          .subscribe((changed: boolean) => {
-            if (changed) this.update();
-          });
+      if (roleId === undefined) {
+        this.snackBarService.openInfoSnackBar({ text: "Role Was Not Changed Window Closed", acceptText: "😥", duration: 3000 });
+        return;
       }
+      const roleIdNum: number = Number(roleId);
+      this.adminService
+        .changeUserRole(id, roleIdNum)
+        .subscribe((changed: boolean) => {
+          if (changed) {
+            this.snackBarService.openSuccessSnackBar({ text: "Role Changed", acceptText: "👌", duration: 3000 });
+            this.update();
+            return;
+          }
+          this.snackBarService.openErrorSnackBar({ text: "Role Was Not Changed", acceptText: "😥", duration: 3000 });
+        });
     });
   }
   protected handleDeleteUser(user: GetUsersDTO) {
@@ -63,13 +71,21 @@ export class EditUserComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe((userId: number) => {
-      if (userId !== undefined) {
-        this.adminService
-          .deleteUserById(userId)
-          .subscribe((deleted: boolean) => {
-            if (deleted) this.update();
-          });
+      if (userId === undefined) {
+        this.snackBarService.openInfoSnackBar({ text: "User Was Not Deleted Window Closed", acceptText: "😥", duration: 3000 });
+        return;
       }
+      this.adminService
+        .deleteUserById(userId)
+        .subscribe((deleted: boolean) => {
+          if (deleted) {
+            this.snackBarService.openSuccessSnackBar({ text: "User Deleted", acceptText: "👌", duration: 3000 });
+            this.update();
+            return;
+          }
+          this.snackBarService.openErrorSnackBar({ text: "User Was Not Deleted", acceptText: "😥", duration: 3000 });
+
+        });
     });
   }
 
